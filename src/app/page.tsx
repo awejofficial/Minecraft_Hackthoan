@@ -1,6 +1,5 @@
 import { db } from "@/db";
 import { sql } from "drizzle-orm";
-import InteractiveCity from "@/components/InteractiveCity";
 import TrajectoryDemo from "@/components/TrajectoryDemo";
 import Dashboard from "@/components/Dashboard";
 import LaneStrip from "@/components/LaneStrip";
@@ -11,50 +10,6 @@ import LiveAnprTester from "@/components/LiveAnprTester";
 
 export const dynamic = "force-dynamic";
 
-const ROWS: { q: string; anpr: string; pt: string; same?: boolean }[] = [
-  {
-    q: "Reading a plate",
-    anpr: "Yes",
-    pt: "Yes, as the first step of the pipeline",
-    same: true,
-  },
-  {
-    q: "What you get per vehicle",
-    anpr: "A list of separate reads, one row per camera",
-    pt: "One ordered journey with the time gap between cameras",
-  },
-  {
-    q: "Misread plates",
-    anpr: "Stored as a different vehicle",
-    pt: "Matched to the nearest known plate and kept on the same route",
-  },
-  {
-    q: "Cloned plates",
-    anpr: "Every read looks valid, so nothing is flagged",
-    pt: "Flagged when one plate appears too far apart in too little time",
-  },
-  {
-    q: "Suspicious routes",
-    anpr: "Not visible in a read log",
-    pt: "Loops, repeat passes and unusual paths raise an alert",
-  },
-  {
-    q: "Blacklisted vehicle",
-    anpr: "Alert at the camera that saw it",
-    pt: "Alert, plus the route taken before and after the hit",
-  },
-  {
-    q: "City picture",
-    anpr: "None, reads are not analysed together",
-    pt: "Heatmaps, corridor speeds and route density from the same reads",
-  },
-  {
-    q: "Camera hardware",
-    anpr: "Often dedicated cameras at fixed points",
-    pt: "Built to read from city camera feeds that are already installed",
-  },
-];
-
 export default async function HomePage() {
   await db.execute(sql`select 1`);
 
@@ -62,46 +17,6 @@ export default async function HomePage() {
     <div className="spacex-landing theme-light">
       <RekorNav theme="light" />
       <RekorHero theme="light" />
-
-      {/* ─────── Why: compare with ANPR ─────── */}
-      <section className="section" id="why">
-        <div className="wrap">
-          <div className="sec-head">
-            <h2>Plate reading is the first step, not the product</h2>
-            <p>
-              ANPR cameras already read plates well. The gap is what happens after the read.
-              VisionX is the layer that connects reads into journeys, analytics and alerts.
-            </p>
-          </div>
-
-          <div className="cmp-wrap">
-            <table className="cmp">
-              <thead>
-                <tr>
-                  <th>Question</th>
-                  <th>Typical ANPR system</th>
-                  <th className="pt">VisionX</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ROWS.map((r) => (
-                  <tr key={r.q}>
-                    <td>{r.q}</td>
-                    <td className={r.same ? "" : "no"}>
-                      <i className={r.same ? "tick" : "dash"} />
-                      {r.anpr}
-                    </td>
-                    <td className="pt">
-                      <i className="tick" />
-                      {r.pt}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
 
       {/* ─────── What only a journey can show ─────── */}
       <section className="section" id="insights">
@@ -266,29 +181,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ─────── Operator console (3D) ─────── */}
-      <section className="section" id="console">
-        <div className="wrap">
-          <div className="sec-head">
-            <h2>The operator view</h2>
-            <p>
-              A 3D model of the camera network. Click any vehicle, or leave auto-read on. The
-              camera locks onto the rear plate, OCR returns text and confidence, and the read
-              joins that vehicle&apos;s journey. Captures are kept for this session only.
-            </p>
-          </div>
 
-          <div className="console-grid">
-            <InteractiveCity theme="light" />
-            <ol className="console-notes">
-              <li><b>01</b><span>Cameras cover junctions. Amber cones show what each one sees.</span></li>
-              <li><b>02</b><span>Glow on the road marks density. Red is the busiest junction.</span></li>
-              <li><b>03</b><span>A locked car shows its plate, class, camera and confidence.</span></li>
-              <li><b>04</b><span>Every read is logged with a time, ready to join a journey.</span></li>
-            </ol>
-          </div>
-        </div>
-      </section>
 
       {/* ─────── Dashboard ─────── */}
       <section className="section" id="dashboard">

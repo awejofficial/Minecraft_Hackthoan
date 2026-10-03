@@ -136,7 +136,7 @@ export default function RekorHero({ theme = "light" }: RekorHeroProps) {
               <span className="btn-label">SEE THE VISIONX DIFFERENCE</span>
             </button>
 
-            <a href="#why" className="rekor-learn-more-link">
+            <a href="#insights" className="rekor-learn-more-link">
               <span>LEARN ABOUT VISIONX</span>
               <span className="arrow-glyph" aria-hidden="true">→</span>
             </a>

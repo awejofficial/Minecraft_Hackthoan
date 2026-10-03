@@ -215,6 +215,7 @@
   z-index: 1;
   pointer-events: auto;
   overflow: hidden;
+  opacity: 0.75; /* Soft, balanced opacity for elegant background presence */
 }
 .rekor-hero-3d-bg .hero-mode-stage,
 .rekor-hero-3d-bg .city-stage {
@@ -268,30 +269,29 @@
   border-radius: 10px;
 }
 
-/* ─── Atmospheric Light Feathering Mask (High readability on left, completely clear 3D on right) ─── */
+/* ─── Atmospheric Light Feathering Mask (Reduced opacity for clear 3D visibility and legible text) ─── */
 .rekor-hero-gradient-overlay {
   position: absolute;
   inset: 0;
   z-index: 5;
   pointer-events: none;
   background:
-    /* Directional feather: solid protection directly behind text column, smoothly fading to transparent for 3D traffic */
+    /* Directional feather: gently translucent behind text, revealing the 3D model cleanly */
     linear-gradient(90deg, 
-      rgba(255, 255, 255, 0.98) 0%, 
-      rgba(255, 255, 255, 0.96) 28%, 
-      rgba(255, 255, 255, 0.90) 44%, 
-      rgba(255, 255, 255, 0.65) 58%, 
-      rgba(255, 255, 255, 0.22) 72%, 
-      rgba(255, 255, 255, 0.03) 84%, 
+      rgba(255, 255, 255, 0.70) 0%, 
+      rgba(255, 255, 255, 0.55) 28%, 
+      rgba(255, 255, 255, 0.35) 44%, 
+      rgba(255, 255, 255, 0.12) 60%, 
+      transparent 76%, 
       transparent 100%
     ),
     /* Soft vertical anchors under navbar and along base */
     linear-gradient(180deg, 
-      rgba(255, 255, 255, 0.96) 0%, 
-      rgba(255, 255, 255, 0.70) 14%, 
-      transparent 32%, 
-      transparent 76%, 
-      rgba(255, 255, 255, 0.70) 100%
+      rgba(255, 255, 255, 0.60) 0%, 
+      rgba(255, 255, 255, 0.25) 12%, 
+      transparent 28%, 
+      transparent 80%, 
+      rgba(255, 255, 255, 0.35) 100%
     );
 }
 

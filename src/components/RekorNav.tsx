@@ -59,14 +59,14 @@ export default function RekorNav({ theme = "light" }: RekorNavProps) {
             <a href="#demo" className="rekor-nav-link">
               Solutions
             </a>
-            <a href="#why" className="rekor-nav-link">
+            <a href="#insights" className="rekor-nav-link">
               Resources
             </a>
             <a href="#pipeline" className="rekor-nav-link">
               Company
             </a>
-            <a href="#why" className="rekor-nav-link">
-              Investor Relations
+            <a href="#dashboard" className="rekor-nav-link">
+              Dashboard
             </a>
           </div>
 
@@ -108,9 +108,9 @@ export default function RekorNav({ theme = "light" }: RekorNavProps) {
           <div className="rekor-mobile-drawer">
             <div className="rekor-mobile-links">
               <a href="#demo" onClick={() => setMobileMenuOpen(false)}>Solutions</a>
-              <a href="#why" onClick={() => setMobileMenuOpen(false)}>Resources</a>
+              <a href="#insights" onClick={() => setMobileMenuOpen(false)}>Resources</a>
               <a href="#pipeline" onClick={() => setMobileMenuOpen(false)}>Company</a>
-              <a href="#why" onClick={() => setMobileMenuOpen(false)}>Investor Relations</a>
+              <a href="#dashboard" onClick={() => setMobileMenuOpen(false)}>Dashboard</a>
               <button
                 type="button"
                 className="rekor-contact-btn mobile-full"
