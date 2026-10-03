@@ -766,11 +766,13 @@ export default function CityScene({ onReady, onPositions, theme = "light", mode 
       const elev = 0.62;
       const px = pointer.current.x, py = pointer.current.y;
       const desiredPos = new THREE.Vector3(
-        Math.sin(a) * D * Math.cos(elev) + px * 0.8,
+        Math.sin(a) * D * Math.cos(elev) + px * 0.8 + (mode === "hero" ? -1.2 : 0),
         D * Math.sin(elev) + py * 0.5,
         Math.cos(a) * D * Math.cos(elev)
       );
-      const desiredLook = isDark ? new THREE.Vector3(0.5, 0.45, 0) : new THREE.Vector3(0, 0.5, 0);
+      const desiredLook = mode === "hero"
+        ? new THREE.Vector3(1.4, 0.45, 0)
+        : (isDark ? new THREE.Vector3(0.5, 0.45, 0) : new THREE.Vector3(0, 0.5, 0));
       let k = 1 - Math.exp(-dt * 1.6);
 
       const lock = lockRef.current;

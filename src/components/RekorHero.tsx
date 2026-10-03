@@ -1,32 +1,24 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import InteractiveCity from "@/components/InteractiveCity";
 
 const ROTATING_DOMAINS = [
   {
-    line1: "Transportation",
-    line2: "Management",
-    gradient1: "linear-gradient(135deg, #60c2ff 0%, #8adeff 55%, #b6edff 100%)",
-    gradient2: "linear-gradient(135deg, #a7f3d0 0%, #bbf7d0 55%, #dcfce7 100%)",
+    line1: "TRANSPORTATION",
+    line2: "MANAGEMENT",
   },
   {
-    line1: "Roadway",
-    line2: "Intelligence",
-    gradient1: "linear-gradient(135deg, #60c2ff 0%, #8adeff 55%, #b6edff 100%)",
-    gradient2: "linear-gradient(135deg, #a7f3d0 0%, #bbf7d0 55%, #dcfce7 100%)",
+    line1: "ROADWAY",
+    line2: "INTELLIGENCE",
   },
   {
-    line1: "Urban",
-    line2: "Mobility",
-    gradient1: "linear-gradient(135deg, #60c2ff 0%, #8adeff 55%, #b6edff 100%)",
-    gradient2: "linear-gradient(135deg, #a7f3d0 0%, #bbf7d0 55%, #dcfce7 100%)",
+    line1: "URBAN",
+    line2: "MOBILITY",
   },
   {
-    line1: "Public",
-    line2: "Safety",
-    gradient1: "linear-gradient(135deg, #60c2ff 0%, #8adeff 55%, #b6edff 100%)",
-    gradient2: "linear-gradient(135deg, #a7f3d0 0%, #bbf7d0 55%, #dcfce7 100%)",
+    line1: "PUBLIC",
+    line2: "SAFETY",
   },
 ];
 
@@ -34,7 +26,7 @@ type RekorHeroProps = {
   theme?: "light" | "dark";
 };
 
-export default function RekorHero({ theme = "dark" }: RekorHeroProps) {
+export default function RekorHero({ theme = "light" }: RekorHeroProps) {
   const [activeIdx, setActiveIdx] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
@@ -62,10 +54,10 @@ export default function RekorHero({ theme = "dark" }: RekorHeroProps) {
   const current = ROTATING_DOMAINS[activeIdx];
 
   return (
-    <header className="rekor-hero-root" id="top">
-      {/* ─────── 3D City Background ─────── */}
+    <header className={`rekor-hero-root theme-${theme}`} id="top">
+      {/* ─────── 3D City Background (Interactive Light/Dark) ─────── */}
       <div className="rekor-hero-3d-bg" aria-hidden="true">
-        <InteractiveCity theme="dark" mode="hero" />
+        <InteractiveCity theme={theme} mode="hero" />
       </div>
 
       {/* ─────── Atmospheric Gradient Mask & Vignette ─────── */}
@@ -74,10 +66,10 @@ export default function RekorHero({ theme = "dark" }: RekorHeroProps) {
       {/* ─────── Main Content Shell ─────── */}
       <div className="rekor-hero-container">
         <div className="rekor-hero-copy">
-          {/* Eyebrow: VisionX is */}
-          <h1 className="rekor-hero-eyebrow">VisionX is</h1>
+          {/* Eyebrow: SpaceX-style all-caps microtext */}
+          <p className="rekor-hero-eyebrow">VISIONX IS</p>
 
-          {/* Large Rotating / Two-line Title */}
+          {/* Large Rotating / Two-line Title in Uppercase D-DIN / Inter */}
           <div
             className="rekor-hero-headline-wrap"
             onMouseEnter={() => setIsPaused(true)}
@@ -86,25 +78,19 @@ export default function RekorHero({ theme = "dark" }: RekorHeroProps) {
             <div className="rekor-hero-headline-lines">
               <span
                 key={`line1-${activeIdx}`}
-                className="rekor-hero-line line-blue"
-                style={{
-                  backgroundImage: current.gradient1,
-                }}
+                className="rekor-hero-line line-1"
               >
                 {current.line1}
               </span>
               <span
                 key={`line2-${activeIdx}`}
-                className="rekor-hero-line line-green"
-                style={{
-                  backgroundImage: current.gradient2,
-                }}
+                className="rekor-hero-line line-2"
               >
                 {current.line2}
               </span>
             </div>
 
-            {/* Subtle Rotator Indicator Dots */}
+            {/* Rotator Indicator Dots */}
             <div className="rekor-slider-dots" role="tablist" aria-label="Rotating domains">
               {ROTATING_DOMAINS.map((domain, i) => (
                 <button
@@ -129,7 +115,7 @@ export default function RekorHero({ theme = "dark" }: RekorHeroProps) {
             for a digital-enabled operating system for the road.
           </p>
 
-          {/* Action CTAs Matching Reference */}
+          {/* Action CTAs: SpaceX Ghost Pill on Light */}
           <div className="rekor-hero-actions">
             <button
               type="button"
@@ -147,11 +133,11 @@ export default function RekorHero({ theme = "dark" }: RekorHeroProps) {
                   <path d="M8 5v14l11-7z" />
                 </svg>
               </span>
-              <span className="btn-label">See the VisionX difference</span>
+              <span className="btn-label">SEE THE VISIONX DIFFERENCE</span>
             </button>
 
             <a href="#why" className="rekor-learn-more-link">
-              <span>Learn about VisionX</span>
+              <span>LEARN ABOUT VISIONX</span>
               <span className="arrow-glyph" aria-hidden="true">→</span>
             </a>
           </div>

@@ -1,24 +1,29 @@
 /* ══════════════════════════════════════════════════════════
-   REKOR DEDICATED DESIGN SYSTEM (HERO & NAVIGATION)
+   SPACEX DESIGN SYSTEM: WHITE / LIGHT THEME
+   Spec: DESIGN.md (Spasex-design-analysis)
+   Surfaces: #ffffff (canvas-light), #f0f0fa (canvas-cool)
+   Hairlines: #e0e0e8 (hairline-on-light)
+   Typography: Uppercase Display, tight leading (0.95-1.1), tracking (1.2-1.6px)
+   Buttons: button-ghost-on-light (pill with 1px black border, hover inverts)
    ══════════════════════════════════════════════════════════ */
 
-/* ─── Rekor Navbar ─── */
+/* ─── SpaceX Top Navigation ─── */
 .rekor-navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid #3a3a3f;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  border-bottom: 1px solid #e0e0e8;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 .rekor-navbar.scrolled {
-  background: rgba(0, 0, 0, 0.95);
-  border-bottom: 1px solid #3a3a3f;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid #e0e0e8;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 .rekor-nav-container {
   max-width: 1400px;
@@ -34,48 +39,35 @@
   display: inline-flex;
   align-items: center;
   text-decoration: none;
+  color: #000000;
   transition: opacity 0.2s ease;
 }
 .rekor-brand-link:hover {
-  opacity: 0.88;
-}
-.rekor-nav-logo {
-  display: block;
-  height: 32px;
-  width: auto;
-  max-width: 140px;
+  opacity: 0.75;
 }
 
-/* ─── VisionX Text-Based Brand Logo ─── */
+/* ─── VisionX SpaceX Text-Based Brand Logo ─── */
+.visionx-spacex-logo,
 .visionx-brand-logo {
   display: inline-flex;
   align-items: baseline;
   font-family: inherit;
   font-weight: 900;
-  font-size: 26px;
+  font-size: 24px;
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: #000000;
   user-select: none;
   text-decoration: none;
 }
-.visionx-brand-main {
-  color: #ffffff;
-  letter-spacing: -0.025em;
-}
+.visionx-spacex-logo span,
 .visionx-brand-x {
-  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 60%, #2563eb 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #38bdf8;
-  margin-left: 2px;
+  color: #000000;
   font-weight: 900;
-  display: inline-block;
-  transform: translateY(-0.5px);
-  filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.6));
 }
 
-/* ─── Center Nav Links ─── */
+/* ─── Center Nav Links (SpaceX All-Caps Microtext) ─── */
 .rekor-nav-menu {
   display: flex;
   align-items: center;
@@ -92,7 +84,7 @@
   font-weight: 700;
   letter-spacing: 1.17px;
   text-transform: uppercase;
-  color: #ffffff;
+  color: #000000;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -103,170 +95,36 @@
 }
 .rekor-nav-link:hover,
 .rekor-nav-link.active {
-  color: #ffffff;
-  opacity: 0.6;
-}
-.rekor-nav-caret {
-  display: inline-block;
-  font-size: 11px;
-  opacity: 0.7;
-  transform: translateY(-1px);
-  transition: transform 0.2s ease;
-}
-.rekor-nav-caret.rot {
-  transform: translateY(-1px) rotate(180deg);
+  color: #000000;
+  opacity: 0.55;
 }
 
-/* ─── Nav Dropdowns ─── */
-.rekor-dropdown-pane {
-  position: absolute;
-  top: calc(100% + 12px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(14, 23, 38, 0.98);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 14px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 1px rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  padding: 24px;
-  min-width: 560px;
-  animation: rekorDropIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-  z-index: 120;
-}
-.rekor-dropdown-pane.narrow {
-  min-width: 360px;
-  padding: 16px;
-}
-@keyframes rekorDropIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -8px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0) scale(1);
-  }
-}
-.rekor-dropdown-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 20px;
-}
-.rekor-dropdown-kicker {
-  display: block;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #38bdf8;
-  margin-bottom: 12px;
-  font-weight: 700;
-}
-.rekor-dropdown-card {
-  display: block;
-  padding: 10px 14px;
-  border-radius: 8px;
-  text-decoration: none;
-  background: transparent;
-  transition: background 0.16s ease, transform 0.16s ease;
-  margin-bottom: 6px;
-}
-.rekor-dropdown-card:hover {
-  background: rgba(56, 189, 248, 0.1);
-  transform: translateX(4px);
-}
-.rekor-dropdown-card .card-title {
-  font-size: 14.5px;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 3px;
-}
-.rekor-dropdown-card .card-desc {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.4;
-}
-.rekor-dropdown-col.highlight {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  padding: 14px;
-}
-.rekor-dropdown-badge-box {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-.rekor-dropdown-badge-box .badge-pill {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: rgba(56, 189, 248, 0.2);
-  color: #7dd3fc;
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  margin-bottom: 6px;
-}
-.rekor-dropdown-badge-box p {
-  font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.45;
-  margin: 0;
-}
-.rekor-dropdown-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.rekor-dropdown-item {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 10px 14px;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: background 0.16s ease, transform 0.16s ease;
-}
-.rekor-dropdown-item:hover {
-  background: rgba(56, 189, 248, 0.1);
-  transform: translateX(4px);
-}
-.rekor-dropdown-item strong {
-  font-size: 14px;
-  color: #ffffff;
-  font-weight: 700;
-}
-.rekor-dropdown-item span {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.4;
-}
-
-/* ─── Nav Action Buttons ─── */
+/* ─── Nav Action Buttons (SpaceX Ghost Pill) ─── */
 .rekor-nav-actions {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 .rekor-contact-btn {
-  background: linear-gradient(180deg, #1d8df9 0%, #0b73e6 100%);
-  color: #ffffff;
+  background: transparent;
+  color: #000000;
   font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.17px;
+  text-transform: uppercase;
   padding: 10px 24px;
   border-radius: 9999px;
-  border: none;
+  border: 1px solid #000000;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(11, 115, 230, 0.4);
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 .rekor-contact-btn:hover {
-  background: linear-gradient(180deg, #2b98ff 0%, #127fe8 100%);
-  box-shadow: 0 6px 20px rgba(11, 115, 230, 0.55);
+  background: #000000;
+  color: #ffffff;
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 .rekor-contact-btn:active {
   transform: translateY(1px);
@@ -275,19 +133,18 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: #0b73e6;
-  color: #ffffff;
-  border: none;
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #e0e0e8;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 14px rgba(11, 115, 230, 0.4);
   transition: all 0.2s ease;
   flex-shrink: 0;
 }
 .rekor-access-btn:hover {
-  background: #2b98ff;
+  border-color: #000000;
   transform: scale(1.05);
 }
 
@@ -305,13 +162,13 @@
   display: block;
   width: 22px;
   height: 2px;
-  background: #ffffff;
+  background: #000000;
   border-radius: 2px;
   transition: transform 0.2s ease;
 }
 .rekor-mobile-drawer {
-  background: rgba(8, 14, 24, 0.98);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e8;
   padding: 24px 32px;
   animation: slideDown 0.24s ease-out;
 }
@@ -321,9 +178,11 @@
   gap: 16px;
 }
 .rekor-mobile-links a {
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 700;
-  color: #ffffff;
+  letter-spacing: 1.17px;
+  text-transform: uppercase;
+  color: #000000;
   text-decoration: none;
   padding: 6px 0;
 }
@@ -334,14 +193,15 @@
 }
 
 /* ══════════════════════════════════════════════════════════
-   REKOR HERO SECTION
+   SPACEX HERO SECTION: WHITE THEME WITH 3D CANVAS
    ══════════════════════════════════════════════════════════ */
 .rekor-hero-root {
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: #060b13;
+  background: #ffffff;
+  color: #000000;
   overflow: hidden;
   padding-top: 130px;
   padding-bottom: 70px;
@@ -369,107 +229,69 @@
   height: 100% !important;
 }
 
-/* High-tech AI OCR tracking pins in hero 3D background */
+/* Tracking pins in hero 3D background (Light Theme) */
 .rekor-hero-3d-bg .stage-pin {
   pointer-events: auto;
   z-index: 2;
-  border-color: rgba(56, 189, 248, 0.45);
-  background: rgba(7, 14, 25, 0.85);
-  color: #e0f2fe;
+  border: 1px solid #cbd5e1;
+  background: rgba(255, 255, 255, 0.94);
+  color: #0f172a;
   font-size: 11px;
+  font-weight: 600;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
 }
 .rekor-hero-3d-bg .stage-pin.active {
-  border-color: #38bdf8;
-  color: #ffffff;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.7);
+  border-color: #000000;
+  color: #000000;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.15);
 }
 .rekor-hero-3d-bg .stage-pin .dot {
-  background: #38bdf8;
+  background: #000000;
 }
 .rekor-hero-3d-bg .stage-pin .bracket {
-  border-color: #38bdf8;
+  border-color: #000000;
 }
 .rekor-hero-3d-bg .read-panel {
   position: absolute;
   top: 140px;
   right: 36px;
   z-index: 3;
-  background: rgba(10, 18, 32, 0.92);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #e0e0e8;
+  color: #000000;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
 
-/* ─── Atmospheric Vignette & Contrast Mask (Behind text for 100% readability) ─── */
+/* ─── Atmospheric Light Feathering Mask (High readability on left, completely clear 3D on right) ─── */
 .rekor-hero-gradient-overlay {
   position: absolute;
   inset: 0;
   z-index: 5;
   pointer-events: none;
   background:
-    /* Directional left-to-right dark wash: deep contrast for text, dissolving seamlessly on the right */
+    /* Directional feather: covers left copy area, completely fading to transparent so 3D traffic is clearly visible */
     linear-gradient(90deg, 
-      rgba(6, 11, 20, 0.88) 0%, 
-      rgba(6, 11, 20, 0.74) 40%, 
-      rgba(6, 11, 20, 0.35) 68%, 
-      rgba(6, 11, 20, 0.08) 88%, 
+      rgba(255, 255, 255, 0.94) 0%, 
+      rgba(255, 255, 255, 0.82) 36%, 
+      rgba(255, 255, 255, 0.28) 60%, 
+      rgba(255, 255, 255, 0.04) 78%, 
       transparent 100%
     ),
-    /* Soft vertical vignette: anchors top navbar and bottom transition */
+    /* Soft vertical anchors */
     linear-gradient(180deg, 
-      rgba(6, 11, 20, 0.65) 0%, 
-      transparent 28%, 
-      rgba(6, 11, 20, 0.6) 100%
+      rgba(255, 255, 255, 0.82) 0%, 
+      transparent 24%, 
+      rgba(255, 255, 255, 0.5) 100%
     );
 }
 
-/* ─── Camera Telemetry HUD Badge ─── */
-.rekor-camera-hud-badge {
-  position: absolute;
-  top: 96px;
-  right: 36px;
-  z-index: 6;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(8, 16, 29, 0.8);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  border-radius: 6px;
-  padding: 6px 14px;
-  font-size: 11px;
-  color: #7dd3fc;
-  letter-spacing: 0.05em;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-}
-.rekor-camera-hud-badge .rec-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 10px #10b981;
-  animation: pulseRec 1.8s infinite ease-in-out;
-}
-@keyframes pulseRec {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
-}
-.rekor-camera-hud-badge .cam-divider {
-  opacity: 0.3;
-}
-.rekor-camera-hud-badge .cam-spec {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* ─── Main Hero Content (Z-Index Stacking Context) ─── */
+/* ─── Main Hero Content Shell ─── */
 .rekor-hero-container {
   position: relative;
   z-index: 15;
@@ -485,19 +307,19 @@
   max-width: 900px;
 }
 
-/* ─── Eyebrow: VisionX is ─── */
+/* ─── Eyebrow: SpaceX All-Caps Microtext ─── */
 .rekor-hero-eyebrow {
   font-family: inherit;
-  font-size: clamp(24px, 2.5vw, 32px);
+  font-size: 13px;
   font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 12px 0;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #5a5a5f;
+  margin: 0 0 14px 0;
   line-height: 1.2;
-  letter-spacing: -0.01em;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.75);
 }
 
-/* ─── Two-line Headline (High-Contrast Luminous Gradients) ─── */
+/* ─── Two-line Headline: SpaceX D-DIN / Inter Bold Uppercase Display ─── */
 .rekor-hero-headline-wrap {
   position: relative;
   margin: 0 0 24px 0;
@@ -509,21 +331,13 @@
 .rekor-hero-line {
   display: block;
   font-family: inherit;
-  font-size: clamp(52px, 7.8vw, 86px);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.015em;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.65));
-  animation: rekorLineFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.rekor-hero-line.line-blue {
-  background-image: linear-gradient(135deg, #60c2ff 0%, #8adeff 55%, #b6edff 100%);
-}
-.rekor-hero-line.line-green {
-  background-image: linear-gradient(135deg, #a7f3d0 0%, #bbf7d0 55%, #dcfce7 100%);
+  font-size: clamp(52px, 7.8vw, 84px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: #000000;
+  animation: rekorLineFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 @keyframes rekorLineFadeIn {
   from {
@@ -549,34 +363,33 @@
   height: 3px;
   width: 20px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.35);
+  background: #e0e0e8;
   border: none;
   cursor: pointer;
   padding: 0;
   transition: all 0.25s ease;
 }
 .rekor-dot:hover {
-  background: rgba(255, 255, 255, 0.75);
+  background: #8a8a92;
 }
 .rekor-dot.active {
   width: 36px;
-  background: #ffffff;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  background: #000000;
 }
 
-/* ─── Hero Description (Clean, High-Contrast White) ─── */
+/* ─── Hero Description: High-Contrast Muted Ink ─── */
 .rekor-hero-description {
   font-family: inherit;
-  font-size: clamp(16px, 1.35vw, 18px);
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.65;
-  color: #ffffff;
-  max-width: 720px;
-  margin: 0 0 38px 0;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+  line-height: 1.7;
+  letter-spacing: 0.32px;
+  color: #5a5a5f;
+  max-width: 660px;
+  margin: 28px 0 38px 0;
 }
 
-/* ─── Hero Action Buttons (Matching Reference) ─── */
+/* ─── Hero Action Buttons: SpaceX Ghost Pill on Light ─── */
 .rekor-hero-actions {
   display: flex;
   align-items: center;
@@ -590,64 +403,74 @@
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  background: linear-gradient(180deg, #1d8df9 0%, #0b73e6 100%);
-  color: #ffffff;
+  background: transparent;
+  color: #000000;
   font-family: inherit;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: normal;
-  text-transform: none;
-  padding: 13px 28px 13px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.17px;
+  text-transform: uppercase;
+  padding: 14px 28px 14px 20px;
   border-radius: 9999px;
-  border: none;
+  border: 1px solid #000000;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(11, 115, 230, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
   transition: all 0.25s ease;
   white-space: nowrap;
 }
 .rekor-video-pill-btn:hover {
-  background: linear-gradient(180deg, #2b98ff 0%, #127fe8 100%);
-  box-shadow: 0 12px 30px rgba(11, 115, 230, 0.6);
+  background: #000000;
+  color: #ffffff;
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 }
 .rekor-video-pill-btn:active {
   transform: translateY(0);
 }
 .play-icon-disc {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: #ffffff;
-  color: #0b73e6;
+  background: #000000;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease;
 }
 .play-icon-tri {
-  width: 13px;
-  height: 13px;
+  width: 10px;
+  height: 10px;
   margin-left: 2px;
-  fill: #0b73e6;
+  fill: #ffffff;
+  transition: fill 0.25s ease;
+}
+.rekor-video-pill-btn:hover .play-icon-disc {
+  background: #ffffff;
+  color: #000000;
+}
+.rekor-video-pill-btn:hover .play-icon-tri {
+  fill: #000000;
 }
 
 .rekor-learn-more-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #ffffff;
+  color: #000000;
   font-family: inherit;
-  font-size: 15.5px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.17px;
+  text-transform: uppercase;
   text-decoration: none;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
   transition: all 0.2s ease;
   padding: 10px 4px;
   white-space: nowrap;
 }
 .rekor-learn-more-link:hover {
-  color: #7dd3fc;
+  opacity: 0.6;
   transform: translateX(4px);
 }
 .arrow-glyph {
@@ -658,12 +481,12 @@
   transform: translateX(3px);
 }
 
-/* ─── Video Lightbox Modal ─── */
+/* ─── Video Lightbox Modal: Minimal Monochrome ─── */
 .rekor-video-modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(4, 8, 15, 0.88);
+  background: rgba(0, 0, 0, 0.72);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   display: flex;
@@ -679,15 +502,15 @@
 .rekor-video-modal-box {
   width: 100%;
   max-width: 960px;
-  background: #0d1524;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #ffffff;
+  border: 1px solid #e0e0e8;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.2);
   animation: modalBoxPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 @keyframes modalBoxPop {
-  from { opacity: 0; transform: scale(0.95); }
+  from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
 }
 .rekor-video-modal-top {
@@ -695,29 +518,31 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 22px;
-  background: rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #f0f0fa;
+  border-bottom: 1px solid #e0e0e8;
 }
 .rekor-modal-title {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  color: #ffffff;
+  letter-spacing: 0.5px;
+  color: #000000;
 }
 .rekor-modal-title .pill {
   font-size: 10px;
   font-weight: 800;
-  background: #096dd9;
+  background: #000000;
   color: #ffffff;
   padding: 2px 7px;
   border-radius: 4px;
+  letter-spacing: 1px;
 }
 .rekor-video-close-btn {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: #000000;
   font-size: 16px;
   cursor: pointer;
   padding: 4px 8px;
@@ -725,8 +550,7 @@
   transition: all 0.16s ease;
 }
 .rekor-video-close-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  background: rgba(0, 0, 0, 0.08);
 }
 .rekor-video-embed-wrap {
   position: relative;
@@ -749,7 +573,7 @@
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(4, 8, 15, 0.88);
+  background: rgba(0, 0, 0, 0.72);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   display: flex;
@@ -761,12 +585,13 @@
 .rekor-contact-modal {
   width: 100%;
   max-width: 580px;
-  background: #0d1626;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #ffffff;
+  border: 1px solid #e0e0e8;
   border-radius: 16px;
   padding: 32px;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.2);
   animation: modalBoxPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #000000;
 }
 .contact-modal-head {
   display: flex;
@@ -777,15 +602,18 @@
 .contact-kicker {
   display: block;
   font-size: 11px;
-  letter-spacing: 0.08em;
-  color: #38bdf8;
+  letter-spacing: 1.17px;
+  text-transform: uppercase;
+  color: #5a5a5f;
   margin-bottom: 4px;
   font-weight: 700;
 }
 .contact-modal-head h3 {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
-  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #000000;
   margin: 0;
 }
 .contact-modal-form {
@@ -804,26 +632,28 @@
   gap: 6px;
 }
 .form-group label {
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #000000;
 }
 .form-group input,
 .form-group select {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #f0f0fa;
+  border: 1px solid #e0e0e8;
   border-radius: 8px;
   padding: 10px 14px;
   font-size: 14px;
-  color: #ffffff;
+  color: #000000;
   font-family: inherit;
   outline: none;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 .form-group input:focus,
 .form-group select:focus {
-  border-color: #38bdf8;
-  background: rgba(255, 255, 255, 0.09);
+  border-color: #000000;
+  background: #ffffff;
 }
 .form-actions {
   display: flex;
@@ -834,17 +664,20 @@
 }
 .btn-cancel {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #e0e0e8;
+  color: #5a5a5f;
   padding: 10px 20px;
   border-radius: 9999px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.17px;
+  text-transform: uppercase;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 .btn-cancel:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  border-color: #000000;
+  color: #000000;
 }
 
 /* ─── Accessibility Drawer ─── */
@@ -852,7 +685,7 @@
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(4, 8, 15, 0.75);
+  background: rgba(0, 0, 0, 0.72);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   display: flex;
@@ -863,31 +696,34 @@
 .rekor-access-modal {
   width: 100%;
   max-width: 480px;
-  background: #0d1626;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #ffffff;
+  border: 1px solid #e0e0e8;
   border-radius: 16px;
   padding: 28px;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.2);
   animation: modalBoxPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #000000;
 }
 .access-modal-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #e0e0e8;
   padding-bottom: 14px;
 }
 .access-head-title {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #38bdf8;
+  color: #000000;
 }
 .access-head-title h3 {
   font-size: 18px;
   font-weight: 700;
-  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #000000;
   margin: 0;
 }
 .access-modal-body {
@@ -903,8 +739,8 @@
   cursor: pointer;
   padding: 10px 12px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #f0f0fa;
+  border: 1px solid #e0e0e8;
 }
 .access-toggle-row .toggle-info {
   display: flex;
@@ -913,16 +749,16 @@
 }
 .access-toggle-row strong {
   font-size: 14px;
-  color: #ffffff;
+  color: #000000;
 }
 .access-toggle-row span {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #5a5a5f;
 }
 .access-toggle-row input[type="checkbox"] {
   width: 20px;
   height: 20px;
-  accent-color: #096dd9;
+  accent-color: #000000;
   cursor: pointer;
 }
 .access-modal-foot {
@@ -931,24 +767,31 @@
   justify-content: space-between;
   margin-top: 24px;
   padding-top: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid #e0e0e8;
 }
 .access-reset-btn {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.6);
+  color: #5a5a5f;
   font-size: 13px;
   cursor: pointer;
   text-decoration: underline;
 }
 .access-done-btn {
-  background: #096dd9;
+  background: #000000;
   color: #ffffff;
-  border: none;
+  border: 1px solid #000000;
   border-radius: 9999px;
   padding: 8px 24px;
+  font-size: 13px;
   font-weight: 700;
+  letter-spacing: 1.17px;
+  text-transform: uppercase;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+.access-done-btn:hover {
+  background: #333333;
 }
 
 /* ─── Responsive Media Queries ─── */
@@ -961,22 +804,22 @@
   .rekor-hero-gradient-overlay {
     background:
       linear-gradient(90deg, 
-        rgba(6, 11, 20, 0.92) 0%, 
-        rgba(6, 11, 20, 0.82) 55%, 
-        rgba(6, 11, 20, 0.45) 80%, 
-        rgba(6, 11, 20, 0.2) 100%
+        rgba(255, 255, 255, 0.95) 0%, 
+        rgba(255, 255, 255, 0.85) 55%, 
+        rgba(255, 255, 255, 0.45) 80%, 
+        rgba(255, 255, 255, 0.15) 100%
       ),
       linear-gradient(180deg, 
-        rgba(6, 11, 20, 0.7) 0%, 
+        rgba(255, 255, 255, 0.85) 0%, 
         transparent 30%, 
-        rgba(6, 11, 20, 0.65) 100%
+        rgba(255, 255, 255, 0.65) 100%
       );
   }
 }
 @media (max-width: 640px) {
   .rekor-hero-root { padding-top: 100px; padding-bottom: 40px; }
-  .rekor-hero-eyebrow { font-size: 24px; }
-  .rekor-hero-line { font-size: 44px; }
+  .rekor-hero-eyebrow { font-size: 12px; }
+  .rekor-hero-line { font-size: 42px; }
   .rekor-hero-description { font-size: 15px; }
   .rekor-hero-actions { flex-direction: column; align-items: flex-start; gap: 16px; }
   .rekor-video-pill-btn { width: 100%; justify-content: center; }
@@ -984,10 +827,9 @@
   .rekor-hero-gradient-overlay {
     background:
       linear-gradient(180deg, 
-        rgba(6, 11, 20, 0.9) 0%, 
-        rgba(6, 11, 20, 0.8) 60%, 
-        rgba(6, 11, 20, 0.88) 100%
+        rgba(255, 255, 255, 0.94) 0%, 
+        rgba(255, 255, 255, 0.84) 60%, 
+        rgba(255, 255, 255, 0.92) 100%
       );
   }
 }
-
