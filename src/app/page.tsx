@@ -3,7 +3,6 @@ import { sql } from "drizzle-orm";
 import TrajectoryDemo from "@/components/TrajectoryDemo";
 import Dashboard from "@/components/Dashboard";
 import LaneStrip from "@/components/LaneStrip";
-import StoryMap from "@/components/StoryMap";
 import RekorNav from "@/components/RekorNav";
 import RekorHero from "@/components/RekorHero";
 import LiveAnprTester from "@/components/LiveAnprTester";
@@ -67,63 +66,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ─────── Components ─────── */}
-      <section className="section" id="components">
-        <div className="wrap">
-          <div className="sec-head">
-            <h2>Four components, as the problem statement requires</h2>
-            <p>
-              Each component maps to one required function in SIH26127. They share a single
-              store of plate sightings, so a read from the camera becomes a trajectory point,
-              a heatmap cell and an alert check at the same time.
-            </p>
-          </div>
 
-          <div className="grid4">
-            <div className="cell">
-              <span className="n">01</span>
-              <h3>High-precision OCR</h3>
-              <p>Detects the plate in each frame, corrects perspective and reads the characters.</p>
-              <span className="target">Target: above 90% accuracy</span>
-              <ul style={{ marginTop: 16 }}>
-                <li>Plate detection and crop</li>
-                <li>Low-light and blur enhancement</li>
-                <li>Indian plate format validation</li>
-              </ul>
-            </div>
-            <div className="cell">
-              <span className="n">02</span>
-              <h3>Trajectory reconstruction engine</h3>
-              <p>Search a plate and get its sightings ordered by time, drawn on the map.</p>
-              <ul>
-                <li>Chronological camera hits</li>
-                <li>Route and time gaps between hits</li>
-                <li>Fuzzy match for misread characters</li>
-              </ul>
-            </div>
-            <div className="cell">
-              <span className="n">03</span>
-              <h3>City traffic analytics dashboard</h3>
-              <p>GIS-integrated view of how the city moves, updated from the same sightings.</p>
-              <ul>
-                <li>Heatmaps</li>
-                <li>Average speeds</li>
-                <li>Route density and trends</li>
-              </ul>
-            </div>
-            <div className="cell">
-              <span className="n">04</span>
-              <h3>Alert system</h3>
-              <p>Checks every new sighting against watchlists and route rules in real time.</p>
-              <ul>
-                <li>Blacklisted vehicle match</li>
-                <li>Route anomaly rules</li>
-                <li>Alert with camera, time and image</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ─────── Pipeline (with live lane example) ─────── */}
       <section className="section" id="pipeline">

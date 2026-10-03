@@ -44,3 +44,4 @@ venv/
 ENV/
 *.log
 test_anpr_*.jpg
+.env*
