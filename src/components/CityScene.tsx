@@ -186,11 +186,13 @@ export default function CityScene({ onReady, onPositions, theme = "light", mode 
       fill.position.set(-8, 6, -6);
       scene.add(fill);
     } else {
-      scene.add(new THREE.HemisphereLight(0xffffff, 0xd9d3c3, 1.5));
-      const sun = new THREE.DirectionalLight(0xfff2dc, 2.8);
+      scene.add(new THREE.HemisphereLight(0xffffff, 0xe5e7eb, 2.0));
+      scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+      const sun = new THREE.DirectionalLight(0xfff5e6, 2.5);
       sun.position.set(9, 15, 6);
       sun.castShadow = true;
       sun.shadow.mapSize.set(2048, 2048);
+      sun.shadow.radius = 2.5;
       sun.shadow.camera.left = -11;
       sun.shadow.camera.right = 11;
       sun.shadow.camera.top = 11;
@@ -200,7 +202,7 @@ export default function CityScene({ onReady, onPositions, theme = "light", mode 
       sun.shadow.bias = -0.0004;
       sun.shadow.normalBias = 0.02;
       scene.add(sun);
-      const fill = new THREE.DirectionalLight(0xdce6f2, 0.7);
+      const fill = new THREE.DirectionalLight(0xdce6f2, 1.1);
       fill.position.set(-8, 6, -6);
       scene.add(fill);
     }
@@ -781,8 +783,13 @@ export default function CityScene({ onReady, onPositions, theme = "light", mode 
         const dx = car.lane.axis === "x" ? car.lane.dir : 0;
         const dz = car.lane.axis === "z" ? car.lane.dir : 0;
         const cp = car.group.position;
-        desiredPos.set(cp.x - dx * 1.15 - dz * 0.35, 0.62, cp.z - dz * 1.15 + dx * 0.35);
-        desiredLook.set(cp.x + dx * 0.25, 0.1, cp.z + dz * 0.25);
+        if (mode === "hero") {
+          desiredPos.set(cp.x - dx * 3.4 - dz * 0.8 - 1.2, 2.2, cp.z - dz * 3.4 + dx * 0.8);
+          desiredLook.set(cp.x + 0.8, 0.35, cp.z);
+        } else {
+          desiredPos.set(cp.x - dx * 1.15 - dz * 0.35, 0.62, cp.z - dz * 1.15 + dx * 0.35);
+          desiredLook.set(cp.x + dx * 0.25, 0.1, cp.z + dz * 0.25);
+        }
         k = 1 - Math.exp(-dt * 5);
         lockRing.position.set(cp.x, 0.034, cp.z);
         const pulse = 1 + 0.12 * Math.sin(t * 8);
