@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "backend:dev": "python -m uvicorn backend.server:app --reload --port 8000",
-    "backend:test": "python backend/test_yolo.py",
+    "backend:dev": ".venv\\Scripts\\python -m uvicorn backend.server:app --reload --port 8000",
+    "backend:test": ".venv\\Scripts\\python backend/test_yolo.py",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",

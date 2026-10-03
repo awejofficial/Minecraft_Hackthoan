@@ -119,11 +119,16 @@ class TrOCRPlateReader:
         self.available = False
 
         if model_path and model_path.exists():
+            weights_file = next((f for f in ["model.safetensors", "pytorch_model.bin"] if (model_path / f).exists()), None)
+            if not weights_file:
+                print(f"ℹ️ TrOCR weights file (model.safetensors) not in local folder. Plate OCR will fallback gracefully.")
+                return
+
             try:
                 from transformers import TrOCRProcessor, VisionEncoderDecoderModel
                 print(f"Loading TrOCR Model from: {model_path} on {self.device}...")
-                self.processor = TrOCRProcessor.from_pretrained(str(model_path))
-                self.model = VisionEncoderDecoderModel.from_pretrained(str(model_path)).to(self.device)
+                self.processor = TrOCRProcessor.from_pretrained(str(model_path), local_files_only=True)
+                self.model = VisionEncoderDecoderModel.from_pretrained(str(model_path), local_files_only=True).to(self.device)
                 self.model.eval()
                 self.available = True
                 print("✅ TrOCR Indian Plate Reader ready!")
