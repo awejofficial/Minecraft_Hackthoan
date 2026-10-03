@@ -7,6 +7,7 @@ import LaneStrip from "@/components/LaneStrip";
 import StoryMap from "@/components/StoryMap";
 import RekorNav from "@/components/RekorNav";
 import RekorHero from "@/components/RekorHero";
+import LiveAnprTester from "@/components/LiveAnprTester";
 
 export const dynamic = "force-dynamic";
 
@@ -261,6 +262,7 @@ export default async function HomePage() {
           </div>
 
           <TrajectoryDemo />
+          <LiveAnprTester />
         </div>
       </section>
 

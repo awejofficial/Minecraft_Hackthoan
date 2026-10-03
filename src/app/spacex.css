@@ -659,3 +659,176 @@
     border-bottom: 1px solid var(--spacex-hairline-light) !important;
   }
 }
+
+/* ─── Live ANPR Test Bench Styles ─── */
+.anpr-tester-box {
+  background-color: var(--spacex-canvas-light);
+  border: 1px solid var(--spacex-hairline-light);
+  border-radius: var(--spacex-radius-sm);
+  padding: 32px;
+  margin-top: 40px;
+}
+
+.anpr-tester-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.anpr-tester-head h3 {
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--spacex-ink);
+  margin: 8px 0;
+}
+
+.anpr-tester-head p {
+  color: var(--spacex-ink-mute);
+  font-size: 14px;
+  margin: 0;
+  max-width: 620px;
+  line-height: 1.5;
+}
+
+.mono-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--spacex-canvas-cool);
+  border: 1px solid var(--spacex-hairline-light);
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: var(--spacex-ink);
+}
+
+.anpr-upload-btn {
+  background: transparent;
+  color: var(--spacex-ink);
+  border: 1px solid var(--spacex-ink);
+  border-radius: var(--spacex-radius-pill);
+  padding: 12px 28px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.17px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.anpr-upload-btn:hover:not(:disabled) {
+  background: var(--spacex-ink);
+  color: var(--spacex-canvas-light);
+}
+
+.anpr-upload-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.anpr-error-banner {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  padding: 14px 18px;
+  border-radius: var(--spacex-radius-xs);
+  font-size: 13.5px;
+  margin-bottom: 24px;
+}
+
+.anpr-result-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.anpr-image-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.anpr-image-pane .sub-title,
+.anpr-stats-pane .sub-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--spacex-ink-mute);
+}
+
+.anpr-annotated-img {
+  width: 100%;
+  border-radius: var(--spacex-radius-xs);
+  border: 1px solid var(--spacex-hairline-light);
+  background: #000;
+  display: block;
+}
+
+.anpr-stats-pane {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.stat-card {
+  background: var(--spacex-canvas-cool);
+  border: 1px solid var(--spacex-hairline-light);
+  border-radius: var(--spacex-radius-xs);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-card .stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--spacex-ink-mute);
+}
+
+.stat-card .stat-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--spacex-ink);
+}
+
+.anpr-plates-list {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.plate-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--spacex-canvas-cool);
+  border: 1px solid var(--spacex-hairline-light);
+  border-radius: var(--spacex-radius-xs);
+}
+
+.plate-tag {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--spacex-ink);
+}
+
+.plate-conf {
+  font-size: 12px;
+  color: #16a34a;
+  font-weight: 600;
+}
+
