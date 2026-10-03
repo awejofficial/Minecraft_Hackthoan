@@ -1,36 +1,13 @@
 {
-  "name": "nextjs-postgresql-template",
+  "name": "minecraft-hackathon",
+  "version": "1.0.0",
   "private": true,
+  "description": "VisionX - Roadway Intelligence & Traffic Analytics Platform",
   "scripts": {
-    "dev": "next dev",
-    "backend:dev": ".venv\\Scripts\\python -m uvicorn backend.server:app --reload --port 8000",
-    "backend:test": ".venv\\Scripts\\python backend/test_yolo.py",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@types/three": "^0.186.0",
-    "dotenv": "17.3.1",
-    "drizzle-orm": "0.45.2",
-    "next": "16.2.6",
-    "pg": "8.20.0",
-    "react": "19.2.6",
-    "react-dom": "19.2.6",
-    "three": "^0.186.1"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "4.1.17",
-    "@types/node": "22.19.15",
-    "@types/pg": "8.18.0",
-    "@types/react": "19.2.14",
-    "@types/react-dom": "19.2.3",
-    "drizzle-kit": "0.31.10",
-    "eslint": "9.39.4",
-    "eslint-config-next": "16.2.6",
-    "postcss": "8.5.8",
-    "tailwindcss": "4.1.17",
-    "typescript": "5.9.3"
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix frontend run start",
+    "lint": "npm --prefix frontend run lint",
+    "typecheck": "npm --prefix frontend run typecheck"
   }
 }

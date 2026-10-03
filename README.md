@@ -1,116 +1,78 @@
-# PlateTrace
+# VisionX — Roadway Intelligence & Traffic Mobility Platform
 
-A minimalist traffic intelligence demo built with Next.js that visualizes how ANPR camera reads can be turned into vehicle journeys, route analysis, and city-level traffic insights.
+A minimalist, high-performance roadway intelligence web application built with **Next.js 16**, **Three.js**, and **TypeScript**. VisionX visualizes real-time vehicle trajectories, traffic density heatmaps, and simulated three-stage ANPR camera feeds.
 
-This project presents a prototype for a smart traffic monitoring system with:
+---
 
-- plate-reading and journey reconstruction
-- cloned-plate / anomaly detection concepts
-- heatmap and corridor traffic visualizations
-- simulated city camera and route data
-- operator dashboard and trajectory search experience
+## 🚀 Live Demo
 
-## Overview
+- **Production URL**: [https://visionx-intelligence.vercel.app](https://visionx-intelligence.vercel.app)
 
-PlateTrace is designed around the idea that raw plate reads are only the first step. The real value comes from linking reads over time and space to rebuild each vehicle's journey, detect abnormal routes, and measure how traffic flows through the city.
+---
 
-The interface includes:
+## 📁 Repository Structure
 
-- an animated city traffic dashboard
-- route/trajectory search workflow
-- 3D-like operator view of the camera network
-- traffic density heatmaps and corridor speed bars
-- prototype storytelling layout explaining the system
-
-## Tech Stack
-
-- Next.js 16
-- React 19
-- TypeScript
-- PostgreSQL + Drizzle ORM
-- Three.js
-- Tailwind CSS
-- ESLint
-
-## Project Structure
+All frontend application code is housed in the `frontend/` directory:
 
 ```text
 .
-├── src/
-│   ├── app/                # Next.js app pages and styling entry points
-│   ├── components/         # Dashboard, city scene, trajectory UI, cards
-│   ├── db/                 # Database connection and schema entrypoint
-│   └── ...
-├── drizzle.config.json     # Drizzle configuration for PostgreSQL
-├── package.json            # Scripts and dependencies
-├── next.config.ts
-├── tsconfig.json
-├── postcss.config.mjs
-├── eslint.config.mjs
-└── README.md
+├── frontend/
+│   ├── src/
+│   │   ├── app/                # Next.js App Router (pages, layout, styling)
+│   │   ├── components/         # 3D CityScene, TrajectoryDemo, LiveAnprTester
+│   │   ├── db/                 # Database connection & Drizzle schema
+│   │   └── lib/                # Telemetry, camera controls & simulated feeds
+│   ├── package.json            # Frontend dependencies & Next.js scripts
+│   ├── tsconfig.json           # TypeScript configuration
+│   ├── next.config.ts          # Next.js configuration
+│   ├── postcss.config.mjs      # PostCSS & Tailwind integration
+│   ├── vercel.json             # Vercel deployment configuration
+│   └── .vercelignore           # Deployment optimization rules
+├── package.json                # Root convenience scripts
+├── .gitignore                  # Monorepo ignore rules
+└── README.md                   # Project documentation
 ```
 
-## Features
+---
 
-- City traffic heatmap with animated hotspot intensity
-- Corridor-level average speed summary bars
-- Trend visualization for traffic patterns
-- Plate trajectory search and route reconstruction concept
-- Camera network simulation with operator-style monitoring UI
-- Alert logic concepts for cloned plates, loops, and blacklisted vehicles
+## 🛠️ Quick Start
 
-## Getting Started
+### 1. Prerequisites
+- **Node.js** 20+
+- **npm** 10+
 
-### Prerequisites
-
-- Node.js 20+
-- PostgreSQL database running locally or remotely
-- npm
-
-### 1. Install dependencies
+### 2. Installation
+Run from root or `frontend/`:
 
 ```bash
+# Option A: From root
+npm run dev
+
+# Option B: Inside frontend
+cd frontend
 npm install
-```
-
-### 2. Configure environment variables
-
-Create a `.env.local` file in the project root with a PostgreSQL connection string:
-
-```env
-DATABASE_URL=postgresql://username:password@localhost:5432/app_db
-```
-
-### 3. Start the app
-
-```bash
 npm run dev
 ```
 
-Then open:
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-```text
-http://localhost:3000
-```
+---
 
-## Available Scripts
+## 📜 Available Scripts
 
-```bash
-npm run dev       # run app in development mode
-npm run build     # production build
-npm run start     # run production build
-npm run lint      # run ESLint
-npm run typecheck # run TypeScript type check
-```
+| Command | Description |
+| :--- | :--- |
+| `npm run dev` | Starts the Next.js development server on port 3000 |
+| `npm run build` | Builds the optimized production bundle |
+| `npm run start` | Runs the production server |
+| `npm run typecheck` | Validates TypeScript with zero type errors |
+| `npm run lint` | Runs ESLint analysis |
 
-## Database Notes
+---
 
-This project includes Drizzle support and expects a PostgreSQL database. The current setup checks for `DATABASE_URL` during startup and uses a shared Postgres pool through `src/db/index.ts`.
+## 🌟 Key Features
 
-## Notes
-
-This repository is a prototype/demo interface intended to communicate the system design and user experience of a traffic intelligence product. The plate data, camera network, and traffic patterns are simulated for demonstration purposes.
-
-## License
-
-No license has been specified for this project yet.
+1. **Interactive 3D City Visualization**: Real-time traffic simulation with camera junction cones and vehicle pins powered by Three.js.
+2. **Three-Stage AI ANPR Test Bench**: Test vehicle license plates with 1-click presets or custom uploads (YOLO11 Vehicle + YOLO Plate + Vision Transformer TrOCR).
+3. **Trajectory Reconstruction**: Chronological camera sighting lookup, detecting impossible hops (cloned plates), loops, and route anomalies.
+4. **City Traffic Dashboard**: Real-time traffic density heatmap grid and corridor speed telemetry.
