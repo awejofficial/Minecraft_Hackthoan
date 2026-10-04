@@ -514,8 +514,8 @@ export const BLOCKED_VEHICLES_DATA: BlockedVehicleRecord[] = [
     firstSeenTime: '11:05:40 AM',
     reappearedAt: 'CAM-CRASH (Ramanagara Expressway Toll)',
     reappearTime: '11:34:10 AM',
-    photoVehicle: 'http://127.0.0.1:8000/crops/crash_frame440_KA09Z4433.jpg',
-    photoPlate: 'http://127.0.0.1:8000/crops/crash_frame375_KA09Z4433.jpg',
+    photoVehicle: '/crops/crash_frame440_KA09Z4433.jpg',
+    photoPlate: '/crops/crash_frame375_KA09Z4433.jpg',
     actionTaken: 'Inter-District Highway Patrol Dispatched • Toll Barrier Block Triggered',
   },
   {
@@ -534,8 +534,8 @@ export const BLOCKED_VEHICLES_DATA: BlockedVehicleRecord[] = [
     firstSeenTime: '09:14:10 AM',
     reappearedAt: 'CAM-02 (Electronic City Toll Plaza)',
     reappearTime: '09:32:22 AM',
-    photoVehicle: 'http://127.0.0.1:8000/crops/1_frame2_KA05MR9633.jpg',
-    photoPlate: 'http://127.0.0.1:8000/crops/2_frame46_KA05MR9633.jpg',
+    photoVehicle: '/crops/1_frame2_KA05MR9633.jpg',
+    photoPlate: '/crops/2_frame46_KA05MR9633.jpg',
     actionTaken: 'Electronic City Toll FastTag Blacklisted • Intercept Unit Alerted',
   },
   {
@@ -554,8 +554,8 @@ export const BLOCKED_VEHICLES_DATA: BlockedVehicleRecord[] = [
     firstSeenTime: '11:12:05 AM',
     reappearedAt: 'CAM-CRASH (Ramanagara Expressway Toll)',
     reappearTime: '11:38:05 AM',
-    photoVehicle: 'http://127.0.0.1:8000/crops/2_frame5_KA51AF5156.jpg',
-    photoPlate: 'http://127.0.0.1:8000/crops/crash_frame45_KA51AF5156.jpg',
+    photoVehicle: '/crops/crash_frame45_KA51AF5156.jpg',
+    photoPlate: '/crops/crash_frame5_KA51AF5156.jpg',
     actionTaken: 'Revenue Recovery Officer Notified • Impound Unit Assigned',
   },
   {
@@ -574,8 +574,8 @@ export const BLOCKED_VEHICLES_DATA: BlockedVehicleRecord[] = [
     firstSeenTime: '11:15:00 AM',
     reappearedAt: 'CAM-CRASH (Ramanagara Expressway Toll)',
     reappearTime: '11:39:12 AM',
-    photoVehicle: 'http://127.0.0.1:8000/crops/2_frame395_KA21C5074.jpg',
-    photoPlate: 'http://127.0.0.1:8000/crops/crash_frame395_KA21C5074.jpg',
+    photoVehicle: '/crops/crash_frame580_KA21C5074.jpg',
+    photoPlate: '/crops/crash_frame395_KA21C5074.jpg',
     actionTaken: 'Inter-District Checkpost Lockdown Order Issued',
   },
 ];
@@ -649,26 +649,6 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
             and inter-district toll corridors. Locate where each registration appeared first, track its
             inter-district transit velocity, and confirm its subsequent reappearance with optical proof.
           </p>
-
-          {/* Quick Stats Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-black/10">
-            <div>
-              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#000000]">7</div>
-              <div className="text-xs text-[#6F6F6F] uppercase tracking-wider mt-1">Districts Mapped</div>
-            </div>
-            <div>
-              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#000000]">NH-275 / 44</div>
-              <div className="text-xs text-[#6F6F6F] uppercase tracking-wider mt-1">Express Corridors</div>
-            </div>
-            <div>
-              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#000000]">6 Nodes</div>
-              <div className="text-xs text-[#6F6F6F] uppercase tracking-wider mt-1">Perimeter Feeds</div>
-            </div>
-            <div>
-              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#000000]">100%</div>
-              <div className="text-xs text-[#6F6F6F] uppercase tracking-wider mt-1">Standard Format OCR</div>
-            </div>
-          </div>
         </div>
       </div>
 

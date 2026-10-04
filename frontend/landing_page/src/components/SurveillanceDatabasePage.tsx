@@ -173,13 +173,13 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
 
         <div className="flex items-center gap-6 text-xs font-mono relative z-10">
           <div>
-            <span className="text-neutral-400 block text-[10px] uppercase tracking-wider">Inference Speed</span>
-            <span className="text-emerald-400 font-bold text-base">~18.2 FPS</span>
+            <span className="text-neutral-400 block text-[10px] uppercase tracking-wider">Camera Feeds</span>
+            <span className="text-white font-bold text-sm">{(data?.camera_options?.length) || 3} Feeds</span>
           </div>
           <div className="h-8 w-px bg-white/15" />
           <div>
-            <span className="text-neutral-400 block text-[10px] uppercase tracking-wider">Noise Suppression</span>
-            <span className="text-white font-bold text-sm">Active (Aspect & Banner Filter)</span>
+            <span className="text-neutral-400 block text-[10px] uppercase tracking-wider">Syntax Filter</span>
+            <span className="text-emerald-400 font-bold text-sm">Active (Indian RTO Regex)</span>
           </div>
         </div>
       </div>
@@ -215,7 +215,9 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
             Active Cameras
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-mono font-bold text-black">3</span>
+            <span className="text-3xl font-mono font-bold text-black">
+              {(data?.camera_options?.length) || 3}
+            </span>
             <span className="text-xs text-[#6F6F6F]">Feeds Tracked</span>
           </div>
         </div>

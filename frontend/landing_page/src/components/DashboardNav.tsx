@@ -10,8 +10,6 @@ import {
   BarChart3,
   Search,
   ShieldAlert,
-  Volume2,
-  VolumeX,
   LogOut,
   Menu,
   X,
@@ -24,7 +22,6 @@ export const DashboardNav: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [soundOn, setSoundOn] = useState(true);
   const [quickSearch, setQuickSearch] = useState("");
   const { officer, signOut } = useAuth();
   const officerEmail = officer?.email ?? "officer@traffic.gov.in";
@@ -177,16 +174,6 @@ export const DashboardNav: React.FC = () => {
           </Link>
 
           <button
-            onClick={() => setSoundOn(!soundOn)}
-            className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
-              soundOn ? "text-emerald-400 hover:bg-emerald-500/10" : "text-slate-500 hover:bg-white/6"
-            }`}
-            title={`Telemetry Audio Alerts: ${soundOn ? "On" : "Muted"}`}
-          >
-            {soundOn ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-          </button>
-
-          <button
             onClick={handleSignOut}
             className="w-10 h-10 rounded-xl text-rose-400 hover:text-rose-200 hover:bg-rose-500/10 flex items-center justify-center transition-all cursor-pointer"
             title="Lock Console / Sign Out"
@@ -198,7 +185,7 @@ export const DashboardNav: React.FC = () => {
 
       {/* ══════════════════════════════════════════════════════════════
           2. REKOR SCOUT TOP UTILITY HEADER BAR
-          Matches Image 1, 2, 3 with Quick Search, Sound On, Avatar
+          Quick Search & System Status
           ══════════════════════════════════════════════════════════════ */}
       <header
         className="fixed top-0 right-0 left-0 md:left-20 h-14 bg-white/95 backdrop-blur-xl border-b border-black/10 z-40 px-4 sm:px-6 flex items-center justify-between shadow-xs select-none"
@@ -238,27 +225,8 @@ export const DashboardNav: React.FC = () => {
           </form>
         </div>
 
-        {/* Right Side: Sound Status, Telemetry Dot & Officer Avatar */}
+        {/* Right Side: Telemetry Dot & Officer Avatar */}
         <div className="flex items-center gap-3">
-          {/* Sound On Indicator (Rekor Scout Image 2) */}
-          <button
-            onClick={() => setSoundOn(!soundOn)}
-            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono transition-colors border cursor-pointer border-black/5 bg-slate-100 hover:bg-slate-200 text-slate-700"
-            title="Toggle Audio Feedback"
-          >
-            {soundOn ? (
-              <>
-                <Volume2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span className="font-semibold text-emerald-700">Sound On</span>
-              </>
-            ) : (
-              <>
-                <VolumeX className="w-3.5 h-3.5 text-slate-400" />
-                <span className="text-slate-500">Muted</span>
-              </>
-            )}
-          </button>
-
           {/* Engine Status Badge */}
           <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-mono text-emerald-800">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />

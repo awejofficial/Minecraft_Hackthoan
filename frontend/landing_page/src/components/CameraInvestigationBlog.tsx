@@ -167,7 +167,7 @@ export const CameraInvestigationBlog: React.FC<CameraInvestigationBlogProps> = (
                 <span className="block text-[#6F6F6F] uppercase text-[10px] tracking-wider mb-0.5">
                   Cameras Detected In
                 </span>
-                <span className="text-xl font-serif font-bold text-black">
+                <span className="text-xl font-mono font-bold text-black">
                   {searchResult.cameras_detected_in} of {searchResult.total_cameras_scanned} Cameras
                 </span>
               </div>
@@ -175,7 +175,7 @@ export const CameraInvestigationBlog: React.FC<CameraInvestigationBlogProps> = (
                 <span className="block text-[#6F6F6F] uppercase text-[10px] tracking-wider mb-0.5">
                   Network Coverage
                 </span>
-                <span className="text-xl font-serif font-bold text-black">
+                <span className="text-xl font-mono font-bold text-black">
                   {Math.round(
                     (searchResult.cameras_detected_in /
                       Math.max(searchResult.total_cameras_scanned, 1)) *
@@ -191,7 +191,7 @@ export const CameraInvestigationBlog: React.FC<CameraInvestigationBlogProps> = (
           {!searchResult.matched && (
             <div className="bg-surface border border-black/10 rounded-3xl p-12 text-center text-[#6F6F6F]">
               <Car className="w-10 h-10 mx-auto mb-3 text-[#6F6F6F]/50" />
-              <h4 className="text-lg font-serif text-black mb-1">
+              <h4 className="text-lg font-sans font-semibold text-black mb-1">
                 No Camera Sightings for "{query.toUpperCase()}"
               </h4>
               <p className="text-sm max-w-md mx-auto">
@@ -206,7 +206,7 @@ export const CameraInvestigationBlog: React.FC<CameraInvestigationBlogProps> = (
           {searchResult.matched && (
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h4 className="text-2xl font-serif text-black tracking-tight">
+                <h4 className="text-2xl font-sans font-bold text-black tracking-tight">
                   Camera Capture Sequence
                 </h4>
                 <span className="text-xs text-[#6F6F6F]">
@@ -236,7 +236,7 @@ export const CameraInvestigationBlog: React.FC<CameraInvestigationBlogProps> = (
                                 {sighting.camera_zone}
                               </span>
                             </div>
-                            <h5 className="font-serif text-lg font-medium text-black">
+                            <h5 className="font-sans text-base font-semibold text-black">
                               {sighting.camera_name}
                             </h5>
                           </div>
