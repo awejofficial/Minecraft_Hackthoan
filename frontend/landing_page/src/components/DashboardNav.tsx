@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Home,
+  LayoutDashboard,
   Search,
   Database,
   MapPin,
@@ -32,7 +33,8 @@ export const DashboardNav: React.FC = () => {
 
   const navItems = [
     { label: "Home", href: "/", icon: Home },
-    { label: "Search", href: "/dashboard/search", icon: Search },
+    { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { label: "Search & Studio", href: "/dashboard/search", icon: Search },
     { label: "Database", href: "/dashboard/database", icon: Database },
     { label: "Map", href: "/dashboard/map", icon: MapPin },
     { label: "Blacklist", href: "/dashboard/blacklist", icon: ShieldAlert, isBlacklist: true },
@@ -40,9 +42,7 @@ export const DashboardNav: React.FC = () => {
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
-    if (href === "/dashboard/search") {
-      return pathname === "/dashboard/search" || pathname === "/dashboard";
-    }
+    if (href === "/dashboard") return pathname === "/dashboard";
     return pathname.startsWith(href);
   };
 

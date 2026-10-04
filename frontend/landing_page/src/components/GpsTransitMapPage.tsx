@@ -777,6 +777,7 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
               onSelectDistrict={(distId) =>
                 setActiveDistrictFilter(distId === activeDistrictFilter ? 'all' : distId)
               }
+              onSelectPlate={(plate) => handleSelectChip(plate)}
             />
           </div>
 

@@ -1,16 +1,20 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { PlateSearchSection } from "@/components/PlateSearchSection";
 import { VideoTimelinePlayer } from "@/components/VideoTimelinePlayer";
 import { VehicleSpotCard } from "@/components/VehicleSpotCard";
 import { CameraInvestigationBlog } from "@/components/CameraInvestigationBlog";
 import { DetectedVehiclesGallery } from "@/components/DetectedVehiclesGallery";
 import LiveAnprTester from "@/components/LiveAnprTester";
+import PlateReadModal, { PlateReadData } from "@/components/PlateReadModal";
 import type { VideoItem, Vehicle, SearchResult, VideoAnalysis } from "@/types/anpr";
 import { BACKEND_URL } from "@/lib/config";
 
 export const SearchStudioView: React.FC = () => {
+  const router = useRouter();
+  const [selectedPlateModal, setSelectedPlateModal] = useState<PlateReadData | null>(null);
   const [videos, setVideos] = useState<VideoItem[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<string>("1.mp4");
   const [searchQuery, setSearchQuery] = useState<string>("KA05MR9633");
@@ -176,6 +180,21 @@ export const SearchStudioView: React.FC = () => {
             videoName={selectedVideo}
             onSelectTimestamp={(t) => setSelectedTimestamp(t)}
             currentTimestamp={selectedTimestamp || 0}
+            onInspectPlate={(veh) => {
+              const [x1, y1, x2, y2] = veh.best_box || [0, 0, 100, 100];
+              const cropUrl = `${BACKEND_URL}/api/crop/${selectedVideo}?frame=${veh.best_frame}&x1=${x1}&y1=${y1}&x2=${x2}&y2=${y2}&plate=${veh.plate}`;
+              setSelectedPlateModal({
+                plate: veh.plate,
+                state: veh.state,
+                vehicleModel: veh.state ? `${veh.state} Registered Vehicle` : "Motor Vehicle",
+                cameraId: selectedVideo.replace('.mp4', ''),
+                siteName: `Corridor Feed (${selectedVideo})`,
+                timestamp: selectedTimestamp || veh.first_seen,
+                confidence: veh.best_ocr_confidence * 100,
+                videoName: selectedVideo,
+                imageUrl: cropUrl,
+              });
+            }}
           />
         </div>
       </div>
@@ -210,6 +229,23 @@ export const SearchStudioView: React.FC = () => {
           onSelectVehicle={handleSelectSuggestedVehicle}
         />
       </div>
+
+      {/* Rekor Scout Plate Read Inspection Modal */}
+      <PlateReadModal
+        isOpen={!!selectedPlateModal}
+        data={selectedPlateModal}
+        onClose={() => setSelectedPlateModal(null)}
+        onTraceOnMap={(plate) => {
+          router.push(`/dashboard/map?plate=${plate}`);
+        }}
+        onJumpToTimeline={(videoName, timestamp, plate) => {
+          setSelectedVideo(videoName);
+          setSelectedTimestamp(timestamp);
+          setSearchQuery(plate);
+          handleSearch(plate);
+          setSelectedPlateModal(null);
+        }}
+      />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Database,
   Search,
@@ -13,8 +14,10 @@ import {
   Clock,
   Sparkles,
   Zap,
+  Eye,
 } from 'lucide-react';
 import type { DatabaseResponse } from '../types/anpr';
+import PlateReadModal, { PlateReadData } from './PlateReadModal';
 
 interface SurveillanceDatabasePageProps {
   onJumpToCamera: (videoName: string, timestamp: number, plate: string) => void;
@@ -25,11 +28,13 @@ import { BACKEND_URL } from "@/lib/config";
 export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> = ({
   onJumpToCamera,
 }) => {
+  const router = useRouter();
   const [data, setData] = useState<DatabaseResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCamera, setSelectedCamera] = useState<string>('ALL');
   const [validOnly, setValidOnly] = useState<boolean>(true);
+  const [selectedPlateModal, setSelectedPlateModal] = useState<PlateReadData | null>(null);
 
   const fetchRecords = () => {
     setIsLoading(true);
@@ -461,17 +466,42 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
                       </td>
 
                       {/* Action */}
-                      <td className="py-3.5 px-5 text-right">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            onJumpToCamera(rec.video_name, rec.first_seen, rec.plate)
-                          }
-                          className="px-3 py-1.5 rounded-xl bg-surface hover:bg-black hover:text-white border border-black/10 text-black text-[11px] font-medium transition-colors cursor-pointer inline-flex items-center gap-1"
-                        >
-                          <span>Jump Video</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </button>
+                      <td className="py-3.5 px-5 text-right whitespace-nowrap">
+                        <div className="inline-flex items-center gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setSelectedPlateModal({
+                                plate: rec.plate,
+                                rawPlate: rec.raw_plate,
+                                state: rec.state_name,
+                                cameraId: rec.camera_id,
+                                cameraName: rec.camera_name,
+                                siteName: rec.camera_name,
+                                timestamp: rec.formatted_first_seen,
+                                confidence: rec.best_ocr_confidence * 100,
+                                videoName: rec.video_name,
+                                imageUrl: cropUrl,
+                              })
+                            }
+                            className="px-2.5 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-600 hover:text-white border border-blue-200 text-blue-700 text-[11px] font-semibold transition-all cursor-pointer inline-flex items-center gap-1"
+                            title="Inspect high-resolution crop and OCR candidates"
+                          >
+                            <Eye className="w-3 h-3" />
+                            <span>Read</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() =>
+                              onJumpToCamera(rec.video_name, rec.first_seen, rec.plate)
+                            }
+                            className="px-2.5 py-1.5 rounded-xl bg-surface hover:bg-black hover:text-white border border-black/10 text-black text-[11px] font-medium transition-colors cursor-pointer inline-flex items-center gap-1"
+                          >
+                            <span>Video</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -481,6 +511,20 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
           </table>
         </div>
       </div>
+
+      {/* Rekor Scout Plate Read Inspection Modal */}
+      <PlateReadModal
+        isOpen={!!selectedPlateModal}
+        data={selectedPlateModal}
+        onClose={() => setSelectedPlateModal(null)}
+        onJumpToTimeline={(videoName, timestamp, plate) => {
+          onJumpToCamera(videoName, timestamp, plate);
+          setSelectedPlateModal(null);
+        }}
+        onTraceOnMap={(plate) => {
+          router.push(`/dashboard/map?plate=${plate}`);
+        }}
+      />
     </section>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { ShieldCheck, MapPin, Clock, Gauge, Hash, PlayCircle, Car } from 'lucide-react';
+import { ShieldCheck, MapPin, Clock, Gauge, Hash, PlayCircle, Car, Eye } from 'lucide-react';
 import type { Vehicle } from '../types/anpr';
 
 interface VehicleSpotCardProps {
@@ -9,6 +9,7 @@ interface VehicleSpotCardProps {
   videoName: string;
   onSelectTimestamp: (timestamp: number) => void;
   currentTimestamp?: number;
+  onInspectPlate?: (vehicle: Vehicle) => void;
 }
 
 import { BACKEND_URL } from "@/lib/config";
@@ -18,6 +19,7 @@ export const VehicleSpotCard: React.FC<VehicleSpotCardProps> = ({
   videoName,
   onSelectTimestamp,
   currentTimestamp = 0,
+  onInspectPlate,
 }) => {
   if (!vehicle) {
     return (
@@ -65,15 +67,28 @@ export const VehicleSpotCard: React.FC<VehicleSpotCardProps> = ({
           </div>
         </div>
 
-        {/* State Badge */}
-        <div className="flex flex-col items-end">
-          <span className="text-[11px] font-semibold text-[#6F6F6F] uppercase tracking-wider block mb-1">
-            Region / Jurisdiction
-          </span>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/5 text-black text-xs font-medium">
-            <MapPin className="w-3.5 h-3.5 text-black/70" />
-            <span>{vehicle.state}</span>
+        {/* State Badge & Plate Read Action */}
+        <div className="flex flex-col items-end gap-2">
+          <div>
+            <span className="text-[11px] font-semibold text-[#6F6F6F] uppercase tracking-wider block mb-1 text-right">
+              Region / Jurisdiction
+            </span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/5 text-black text-xs font-medium">
+              <MapPin className="w-3.5 h-3.5 text-black/70" />
+              <span>{vehicle.state}</span>
+            </div>
           </div>
+
+          {onInspectPlate && (
+            <button
+              type="button"
+              onClick={() => onInspectPlate(vehicle)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-all cursor-pointer"
+            >
+              <Eye className="w-3.5 h-3.5" />
+              <span>Plate Read</span>
+            </button>
+          )}
         </div>
       </div>
 

@@ -55,9 +55,16 @@ export const PlateSearchSection: React.FC<PlateSearchSectionProps> = ({
     }
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const [isDragOver, setIsDragOver] = useState(false);
+
+  const processFile = async (file: File) => {
     if (!file) return;
+
+    // Validate video file
+    if (!file.type.startsWith('video/') && !file.name.match(/\.(mp4|mov|avi|mkv|webm)$/i)) {
+      alert('Please upload a valid video file (.mp4, .mov, .avi, or .mkv).');
+      return;
+    }
 
     setIsUploading(true);
     const formData = new FormData();
@@ -86,6 +93,18 @@ export const PlateSearchSection: React.FC<PlateSearchSectionProps> = ({
       setIsUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
     }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) processFile(file);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) processFile(file);
   };
 
   const [isDeleteMode, setIsDeleteMode] = useState(false);
@@ -206,8 +225,31 @@ export const PlateSearchSection: React.FC<PlateSearchSectionProps> = ({
         </p>
       </div>
 
-      {/* Control Card */}
-      <div className="bg-white/90 backdrop-blur-xl border border-black/10 rounded-3xl p-6 sm:p-8 shadow-xl shadow-black/5">
+      {/* Control Card with Drag & Drop */}
+      <div
+        onDragOver={(e) => {
+          e.preventDefault();
+          setIsDragOver(true);
+        }}
+        onDragLeave={() => setIsDragOver(false)}
+        onDrop={handleDrop}
+        className={`relative bg-white/90 backdrop-blur-xl border rounded-3xl p-6 sm:p-8 shadow-xl shadow-black/5 transition-all duration-200 ${
+          isDragOver
+            ? 'border-emerald-500 ring-4 ring-emerald-500/20 bg-emerald-50/40'
+            : 'border-black/10'
+        }`}
+      >
+        {isDragOver && (
+          <div className="absolute inset-0 z-30 rounded-3xl bg-emerald-500/10 backdrop-blur-xs flex flex-col items-center justify-center border-2 border-dashed border-emerald-500 pointer-events-none animate-in fade-in">
+            <Upload className="w-10 h-10 text-emerald-600 animate-bounce mb-2" />
+            <span className="font-serif text-lg font-bold text-emerald-950">
+              Drop Traffic Video to Upload
+            </span>
+            <span className="text-xs font-mono text-emerald-800 mt-1">
+              Supports .mp4, .mov, .avi, .mkv (Auto-starts GPU ANPR Pipeline)
+            </span>
+          </div>
+        )}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-5 border-b border-black/5">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -507,13 +549,26 @@ export const PlateSearchSection: React.FC<PlateSearchSectionProps> = ({
               )}
             </div>
 
-            <div className="flex justify-end pt-3 border-t border-black/5">
+            <div className="flex justify-end gap-2 pt-3 border-t border-black/5">
               <button
                 type="button"
-                onClick={() => setShowGpuModal(false)}
-                className="px-5 py-2.5 rounded-xl bg-black text-white text-xs font-semibold hover:bg-neutral-800 transition-all cursor-pointer"
+                onClick={() => {
+                  setShowGpuModal(false);
+                  if (gpuJob?.status === 'COMPLETED' && gpuJob.plates_spotted && gpuJob.plates_spotted.length > 0) {
+                    const top = gpuJob.plates_spotted[0];
+                    onSearchQueryChange(top);
+                    onSearch(top);
+                    const el = document.getElementById('player-section');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className={`px-5 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                  gpuJob?.status === 'COMPLETED'
+                    ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md'
+                    : 'bg-black text-white hover:bg-neutral-800'
+                }`}
               >
-                {gpuJob?.status === 'COMPLETED' ? 'Done & View Results' : 'Dismiss to Background'}
+                {gpuJob?.status === 'COMPLETED' ? 'Done & Spot Plates in Player' : 'Dismiss to Background'}
               </button>
             </div>
           </div>

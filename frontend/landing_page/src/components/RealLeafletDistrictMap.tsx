@@ -2,9 +2,25 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
-import { Layers, Maximize2, Globe, Key, CheckCircle2, ShieldCheck, ExternalLink } from 'lucide-react';
+import {
+  Layers,
+  Maximize2,
+  Globe,
+  Key,
+  CheckCircle2,
+  ShieldCheck,
+  ExternalLink,
+  Search,
+  AlertTriangle,
+  Clock,
+  ArrowRight,
+  Filter,
+} from 'lucide-react';
 import type { CameraNode, TransitTrajectory, DistrictInfo } from './GpsTransitMapPage';
+import { DISTRICT_TRAJECTORIES, BLOCKED_VEHICLES_DATA } from './GpsTransitMapPage';
 import { BACKEND_URL } from '@/lib/config';
+import { fetchOsrmRoadRoute } from '@/lib/osrmRoute';
+import PlateReadModal, { PlateReadData } from './PlateReadModal';
 
 interface RealLeafletDistrictMapProps {
   currentTrajectory: TransitTrajectory;
@@ -12,6 +28,7 @@ interface RealLeafletDistrictMapProps {
   cameras: CameraNode[];
   activeDistrictId: string;
   onSelectDistrict: (districtId: string) => void;
+  onSelectPlate?: (plate: string) => void;
 }
 
 // Read CARTO API key from Next.js public environment
@@ -154,6 +171,7 @@ export const RealLeafletDistrictMap: React.FC<RealLeafletDistrictMapProps> = ({
   cameras,
   activeDistrictId,
   onSelectDistrict,
+  onSelectPlate,
 }) => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
@@ -161,15 +179,22 @@ export const RealLeafletDistrictMap: React.FC<RealLeafletDistrictMapProps> = ({
   const vectorLayersGroupRef = useRef<L.LayerGroup | null>(null);
   const markersGroupRef = useRef<L.LayerGroup | null>(null);
 
-  const initialBasemap = (process.env.NEXT_PUBLIC_CARTO_BASEMAP as keyof typeof TILE_LAYERS) || 'satellite';
+  const initialBasemap = (process.env.NEXT_PUBLIC_CARTO_BASEMAP as keyof typeof TILE_LAYERS) || 'voyager';
   const [activeTileStyle, setActiveTileStyle] = useState<keyof typeof TILE_LAYERS>(
-    initialBasemap in TILE_LAYERS ? initialBasemap : 'satellite'
+    initialBasemap in TILE_LAYERS ? initialBasemap : 'voyager'
   );
   const [showDistricts, setShowDistricts] = useState<boolean>(true);
   const [showCameras, setShowCameras] = useState<boolean>(true);
   const [showHighways, setShowHighways] = useState<boolean>(true);
   const [cursorCoords, setCursorCoords] = useState<{ lat: number; lng: number } | null>(null);
   const [showApiKeyModal, setShowApiKeyModal] = useState<boolean>(false);
+
+  // Rekor Scout Floating Dispatch Card State (matching Image 2)
+  const [dispatchTab, setDispatchTab] = useState<'alerts' | 'search'>('alerts');
+  const [showDispatchCard, setShowDispatchCard] = useState<boolean>(true);
+  const [selectedTimeframe, setSelectedTimeframe] = useState<string>('24h');
+  const [dispatchQuery, setDispatchQuery] = useState<string>('');
+  const [selectedPlateModal, setSelectedPlateModal] = useState<PlateReadData | null>(null);
 
   // Invalidate map size to prevent gray tiles and ensure proper viewport rendering
   useEffect(() => {
@@ -406,104 +431,55 @@ export const RealLeafletDistrictMap: React.FC<RealLeafletDistrictMapProps> = ({
       : null;
 
     if (destCam) {
-      // Determine real road path between originCam and destCam
-      let routeWaypoints: [number, number][] = [];
-      const oId = originCam.id;
-      const dId = destCam.id;
+      let isCancelled = false;
 
-      if ((oId === 'CAM-01' && dId === 'CAM-02') || (oId === 'CAM-02' && dId === 'CAM-01')) {
-        // NH-44 Elevated Expressway (Silk Board to Electronic City)
-        routeWaypoints = [...NH44_ELEVATED_WAYPOINTS];
-        if (oId === 'CAM-02') routeWaypoints.reverse();
-      } else if (
-        (oId === 'CAM-01' || oId === 'CAM-02' || oId === 'CAM-04') &&
-        (dId === 'CAM-CRASH' || dId === 'CAM-TT2' || dId === 'CAM-MYS')
-      ) {
-        // Multi-corridor route: Outer Ring Road / NICE Road -> NH-275 Expressway
-        const wp: [number, number][] = [];
-        if (oId === 'CAM-01') {
-          wp.push([originCam.lat, originCam.lng]);
-          wp.push([12.871, 77.648]); // Kudlu Gate
-          wp.push([12.8452, 77.6602]); // E-City NICE Junction
-          wp.push([12.855, 77.56]); // NICE Road
-          wp.push([12.9081, 77.4875]); // Kengeri NICE Interchange
-        } else if (oId === 'CAM-02') {
-          wp.push([originCam.lat, originCam.lng]);
-          wp.push([12.855, 77.56]); // NICE Road
-          wp.push([12.9081, 77.4875]); // Kengeri NICE Interchange
-        } else {
-          wp.push([originCam.lat, originCam.lng]);
-        }
+      // Asynchronously fetch real turn-by-turn road network geometry (OSRM Google Maps style)
+      fetchOsrmRoadRoute(originCam.lng, originCam.lat, destCam.lng, destCam.lat).then((roadCoords) => {
+        if (isCancelled || !mapInstanceRef.current || !vectorLayersGroupRef.current) return;
+        const vectorGroup = vectorLayersGroupRef.current;
+        const map = mapInstanceRef.current;
 
-        // Add NH-275 expressway waypoints up to destCam
-        if (dId === 'CAM-CRASH') {
-          wp.push([12.854, 77.432]); // Kumbalgodu
-          wp.push([12.7985, 77.3824]); // Bidadi Bypass
-          wp.push([destCam.lat, destCam.lng]); // Ramanagara Toll (CAM-CRASH)
-        } else if (dId === 'CAM-TT2') {
-          wp.push([12.854, 77.432]);
-          wp.push([12.7985, 77.3824]);
-          wp.push([12.7214, 77.281]); // Ramanagara
-          wp.push([12.6512, 77.195]); // Channapatna
-          wp.push([12.584, 77.0512]); // Maddur
-          wp.push([destCam.lat, destCam.lng]); // Mandya Bypass
-        } else if (dId === 'CAM-MYS') {
-          wp.push(...NH275_EXPRESSWAY_WAYPOINTS.slice(1));
-        }
-        routeWaypoints = wp;
-      } else {
-        const midLat = (originCam.lat + destCam.lat) / 2 + 0.015;
-        const midLng = (originCam.lng + destCam.lng) / 2 - 0.02;
-        routeWaypoints = [
-          [originCam.lat, originCam.lng],
-          [midLat, midLng],
-          [destCam.lat, destCam.lng],
-        ];
-      }
+        const isAlertVehicle =
+          currentTrajectory.plate.includes('Z4433') ||
+          currentTrajectory.plate.includes('5156') ||
+          currentTrajectory.plate.includes('5074');
 
-      // Outer Cyan Halo Glow (super visible against dark satellite imagery)
-      L.polyline(routeWaypoints, {
-        color: '#00F0FF',
-        weight: 12,
-        opacity: 0.38,
-        lineCap: 'round',
-        lineJoin: 'round',
-      }).addTo(vectorGroup);
+        // 1. Highway Outer Dark Casing (contrast layer against terrain)
+        L.polyline(roadCoords, {
+          color: '#0F172A',
+          weight: 8,
+          opacity: 0.85,
+          lineCap: 'round',
+          lineJoin: 'round',
+        }).addTo(vectorGroup);
 
-      // Deep Contrast Border (provides contrast against bright terrain and satellite features)
-      L.polyline(routeWaypoints, {
-        color: '#020617',
-        weight: 6,
-        opacity: 0.95,
-        lineCap: 'round',
-        lineJoin: 'round',
-      }).addTo(vectorGroup);
+        // 2. Google Maps / Rekor Scout Primary Road Route Line
+        L.polyline(roadCoords, {
+          color: isAlertVehicle ? '#E11D48' : '#2563EB',
+          weight: 5,
+          opacity: 0.98,
+          lineCap: 'round',
+          lineJoin: 'round',
+        }).addTo(vectorGroup);
 
-      // Core Vibrant Trajectory Line
-      L.polyline(routeWaypoints, {
-        color: '#00F0FF',
-        weight: 3.5,
-        opacity: 1,
-        lineCap: 'round',
-        lineJoin: 'round',
-      }).addTo(vectorGroup);
+        // 3. High-Contrast Directional Chevrons / Center Dash
+        L.polyline(roadCoords, {
+          color: '#FFFFFF',
+          weight: 1.5,
+          dashArray: '6, 12',
+          opacity: 0.9,
+          lineCap: 'round',
+        }).addTo(vectorGroup);
 
-      // High-Contrast White Center Dashed Line
-      L.polyline(routeWaypoints, {
-        color: '#FFFFFF',
-        weight: 2,
-        dashArray: '6, 10',
-        opacity: 0.95,
-      }).addTo(vectorGroup);
-
-      // Waypoint Pulse Beads along the trajectory path (shows vehicle transit direction)
-      routeWaypoints.forEach((pt, idx) => {
-        if (idx > 0 && idx < routeWaypoints.length - 1) {
+        // 4. Milestone Pulse Beads along the actual road curves
+        const stride = Math.max(15, Math.floor(roadCoords.length / 8));
+        for (let i = stride; i < roadCoords.length - stride; i += stride) {
+          const pt = roadCoords[i];
           const waypointIcon = L.divIcon({
             html: `
               <div class="relative flex items-center justify-center">
-                <div class="w-3.5 h-3.5 rounded-full bg-cyan-400 opacity-60 animate-ping"></div>
-                <div class="absolute w-2 h-2 rounded-full bg-white border border-cyan-500 shadow"></div>
+                <div class="w-3.5 h-3.5 rounded-full ${isAlertVehicle ? 'bg-rose-400' : 'bg-blue-400'} opacity-60 animate-ping"></div>
+                <div class="absolute w-2 h-2 rounded-full bg-white border ${isAlertVehicle ? 'border-rose-600' : 'border-blue-600'} shadow"></div>
               </div>
             `,
             className: 'custom-waypoint-dot',
@@ -512,15 +488,15 @@ export const RealLeafletDistrictMap: React.FC<RealLeafletDistrictMapProps> = ({
           });
           L.marker(pt, { icon: waypointIcon, interactive: false }).addTo(vectorGroup);
         }
-      });
 
-      // Auto-fit bounds with smooth fly
-      const bounds = L.latLngBounds(routeWaypoints);
-      map.invalidateSize();
-      map.flyToBounds(bounds, {
-        padding: [60, 60],
-        maxZoom: 13,
-        duration: 1.2,
+        // Auto-fit bounds with smooth Google Maps fly animation
+        const bounds = L.latLngBounds(roadCoords);
+        map.invalidateSize();
+        map.flyToBounds(bounds, {
+          padding: [70, 70],
+          maxZoom: 13,
+          duration: 1.2,
+        });
       });
     }
 
@@ -759,6 +735,186 @@ export const RealLeafletDistrictMap: React.FC<RealLeafletDistrictMapProps> = ({
         </div>
       )}
 
+      {/* Rekor Scout Floating Dispatch Search & Sightings Card (Matching Image 2) */}
+      <div className="absolute top-18 sm:top-20 left-4 z-[400] w-80 sm:w-96 bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-black/15 shadow-2xl overflow-hidden pointer-events-auto">
+        <div className="flex items-center justify-between px-3.5 pt-3 pb-2.5 border-b border-black/10 bg-slate-50/80">
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={() => setDispatchTab('alerts')}
+              className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                dispatchTab === 'alerts'
+                  ? 'bg-rose-600 text-white shadow-xs'
+                  : 'text-rose-700 hover:bg-rose-50'
+              }`}
+            >
+              <span>Alert List</span>
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-white text-rose-700 font-bold">
+                {BLOCKED_VEHICLES_DATA.length}
+              </span>
+            </button>
+            <button
+              onClick={() => setDispatchTab('search')}
+              className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                dispatchTab === 'search'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'text-gray-600 hover:bg-black/5'
+              }`}
+            >
+              Search Plates
+            </button>
+          </div>
+          <button
+            onClick={() => setShowDispatchCard(!showDispatchCard)}
+            className="text-[11px] font-mono text-gray-500 hover:text-black cursor-pointer px-2 py-0.5 rounded-lg border border-black/5 bg-white"
+          >
+            {showDispatchCard ? 'Hide' : 'Show'}
+          </button>
+        </div>
+
+        {showDispatchCard && (
+          <div className="p-3.5 space-y-3">
+            {/* Quick Time Range Filter Pills (Image 2) */}
+            <div className="flex items-center justify-between gap-1 text-[10px] font-mono text-gray-600 border-b border-black/5 pb-2.5 overflow-x-auto">
+              {['1h', '6h', '12h', '24h', '48h', '72h', '1w', '2w'].map((tf) => (
+                <button
+                  key={tf}
+                  onClick={() => setSelectedTimeframe(tf)}
+                  className={`px-2 py-0.5 rounded-md cursor-pointer transition-all ${
+                    selectedTimeframe === tf
+                      ? 'bg-black text-white font-bold shadow-xs'
+                      : 'hover:bg-black/5 text-[#5E5E59]'
+                  }`}
+                >
+                  {tf}
+                </button>
+              ))}
+            </div>
+
+            {/* Quick Plate Filter Input */}
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Filter spotted plate (e.g. KA05MR9633)..."
+                value={dispatchQuery}
+                onChange={(e) => setDispatchQuery(e.target.value)}
+                className="w-full bg-slate-50 border border-black/10 rounded-xl px-3 py-2 text-xs font-mono uppercase tracking-wider focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
+              />
+            </div>
+
+            {/* Sighting Records Mini Table (Image 2) */}
+            <div className="max-h-44 overflow-y-auto rounded-xl border border-black/10 bg-white shadow-inner">
+              <table className="w-full text-left text-[11px]">
+                <thead className="bg-slate-100 text-[#6F6F6F] font-mono text-[9px] uppercase sticky top-0 border-b border-black/5">
+                  <tr>
+                    <th className="py-1.5 px-2.5">Plate</th>
+                    <th className="py-1.5 px-2">Camera</th>
+                    <th className="py-1.5 px-2">Time</th>
+                    <th className="py-1.5 px-2 text-right">View</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-black/5 font-sans">
+                  {dispatchTab === 'alerts' ? (
+                    BLOCKED_VEHICLES_DATA.filter(
+                      (b) =>
+                        !dispatchQuery ||
+                        b.plate.toLowerCase().includes(dispatchQuery.toLowerCase())
+                    ).map((b) => (
+                      <tr
+                        key={b.id}
+                        onClick={() => {
+                          if (onSelectPlate) onSelectPlate(b.plate);
+                        }}
+                        className="hover:bg-rose-50/70 transition-colors cursor-pointer group"
+                      >
+                        <td className="py-2 px-2.5 font-mono font-bold text-rose-800">
+                          {b.plate}
+                        </td>
+                        <td className="py-2 px-2 text-slate-600 font-mono text-[10px]">
+                          {b.whereAppeared.split(' ')[0]}
+                        </td>
+                        <td className="py-2 px-2 text-slate-500 text-[10px]">
+                          {b.firstSeenTime}
+                        </td>
+                        <td className="py-2 px-2 text-right">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedPlateModal({
+                                plate: b.plate,
+                                state: b.state,
+                                vehicleModel: b.vehicleModel,
+                                cameraId: b.whereAppeared.split(' ')[0],
+                                cameraName: b.whereAppeared,
+                                siteName: b.originDistrict,
+                                timestamp: b.firstSeenTime,
+                                imageUrl: b.photoVehicle,
+                                plateCropUrl: b.photoPlate,
+                                confidence: 97.8,
+                              });
+                            }}
+                            className="p-1 rounded bg-black/5 hover:bg-black/10 text-black text-[10px] font-mono font-bold cursor-pointer"
+                          >
+                            Read
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    Object.values(DISTRICT_TRAJECTORIES)
+                      .filter(
+                        (t) =>
+                          !dispatchQuery ||
+                          t.plate.toLowerCase().includes(dispatchQuery.toLowerCase())
+                      )
+                      .map((t) => (
+                        <tr
+                          key={t.plate}
+                          onClick={() => {
+                            if (onSelectPlate) onSelectPlate(t.plate);
+                          }}
+                          className="hover:bg-blue-50/60 transition-colors cursor-pointer group"
+                        >
+                          <td className="py-2 px-2.5 font-mono font-bold text-black">
+                            {t.plate}
+                          </td>
+                          <td className="py-2 px-2 text-slate-600 font-mono text-[10px]">
+                            {t.firstSeen.cameraId}
+                          </td>
+                          <td className="py-2 px-2 text-slate-500 text-[10px]">
+                            {t.firstSeen.timestamp}
+                          </td>
+                          <td className="py-2 px-2 text-right">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedPlateModal({
+                                  plate: t.plate,
+                                  vehicleModel: t.vehicleModel,
+                                  vehicleType: t.vehicleType,
+                                  cameraId: t.firstSeen.cameraId,
+                                  cameraName: t.firstSeen.cameraName,
+                                  siteName: t.highwayCorridor,
+                                  timestamp: t.firstSeen.timestamp,
+                                  confidence: 96.5,
+                                });
+                              }}
+                              className="p-1 rounded bg-black/5 hover:bg-black/10 text-black text-[10px] font-mono font-bold cursor-pointer"
+                            >
+                              Read
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Bottom Floating Legend & Telemetry Bar */}
       <div className="absolute bottom-4 left-4 z-[400] bg-white/95 backdrop-blur-md border border-black/10 rounded-2xl p-3 shadow-lg flex flex-col sm:flex-row items-start sm:items-center gap-4 text-xs font-mono">
         <div className="flex items-center gap-2">
@@ -770,8 +926,8 @@ export const RealLeafletDistrictMap: React.FC<RealLeafletDistrictMapProps> = ({
           <span className="text-black font-semibold">Reappearance Toll</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-7 h-1.5 bg-cyan-400 border border-black rounded shadow"></span>
-          <span className="text-slate-800 font-bold">Target Transit Trajectory</span>
+          <span className="w-7 h-1.5 bg-blue-600 border border-slate-900 rounded shadow"></span>
+          <span className="text-slate-800 font-bold">Google Maps Road Route</span>
         </div>
         <div className="flex items-center gap-2">
           <span className="w-5 h-1 bg-slate-400 rounded"></span>
@@ -786,6 +942,17 @@ export const RealLeafletDistrictMap: React.FC<RealLeafletDistrictMapProps> = ({
           {cursorCoords ? `${cursorCoords.lat}° N, ${cursorCoords.lng}° E` : '12.7214° N, 77.2810° E'}
         </span>
       </div>
+
+      {/* Rekor Scout Plate Read Inspection Modal (Image 4) */}
+      <PlateReadModal
+        isOpen={!!selectedPlateModal}
+        data={selectedPlateModal}
+        onClose={() => setSelectedPlateModal(null)}
+        onTraceOnMap={(plate) => {
+          if (onSelectPlate) onSelectPlate(plate);
+          setSelectedPlateModal(null);
+        }}
+      />
     </div>
   );
 };
