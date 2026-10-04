@@ -627,58 +627,50 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
       {/* Editorial Header */}
       <div className="relative w-full bg-white border-b border-black/10 pt-10 pb-8">
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-white/80 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-mono uppercase tracking-wider text-[#6F6F6F]">
-                Live District Surveillance Mesh • 7 Jurisdictions Mapped
-              </span>
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
+            <div className="inline-flex items-center gap-2 px-2 py-0.5 rounded-xs bg-black text-white text-[10px] font-mono uppercase tracking-[1.5px] font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>DISTRICT SURVEILLANCE MESH • 7 JURISDICTIONS ACTIVE</span>
             </div>
           </div>
 
-          <h1
-            className="font-sans text-3xl sm:text-5xl md:text-6xl font-bold text-[#000000] tracking-tight leading-[1.05] max-w-5xl"
-            style={{ letterSpacing: "-1.5px" }}
-          >
-            District Trajectory &amp;{" "}
-            <span className="italic text-[#6F6F6F] font-normal">Cross-Perimeter Intelligence.</span>
+          <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold text-black tracking-tight uppercase">
+            DISTRICT TRAJECTORY &amp; CORRIDOR ROUTING
           </h1>
 
-          <p className="max-w-3xl mt-4 text-sm sm:text-base leading-relaxed text-[#6F6F6F]">
-            Reconstruct vehicle movements across administrative district boundaries, state expressways,
-            and inter-district toll corridors. Locate where each registration appeared first, track its
-            inter-district transit velocity, and confirm its subsequent reappearance with optical proof.
+          <p className="max-w-2xl mt-2 text-xs sm:text-sm text-neutral-600 font-mono">
+            Inter-district road geometry, velocity reconstruction, and perimeter camera sighting telemetry.
           </p>
         </div>
       </div>
 
       {/* Vehicle Plate Search & Quick Preset Bar */}
       <div className="max-w-7xl mx-auto px-6 sm:px-8 -mt-6 relative z-20">
-        <div className="bg-white/95 backdrop-blur-xl border border-black/10 rounded-3xl p-6 shadow-xl">
-          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row items-center gap-4">
+        <div className="bg-white border border-black/15 rounded-xs p-4 shadow-sm">
+          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row items-center gap-3">
             <div className="relative flex-1 w-full">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6F6F6F]" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
               <input
                 type="text"
                 value={searchPlateInput}
                 onChange={(e) => setSearchPlateInput(e.target.value)}
-                placeholder="Enter License Plate Number (e.g., KA05MR9633, KA09Z4433, KA51AF5156, KA21C5074)..."
-                className="w-full pl-12 pr-4 py-3.5 bg-[#F9FAFB] border border-black/15 rounded-2xl text-[#000000] placeholder-[#6F6F6F] focus:outline-none focus:border-black focus:ring-1 focus:ring-black text-sm font-mono tracking-wider transition-all"
+                placeholder="ENTER REGISTRATION NUMBER (E.G. KA05MR9633, KA09Z4433)..."
+                className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 hover:bg-white focus:bg-white border border-black/20 rounded-xs text-black placeholder:text-neutral-400 focus:outline-none focus:border-black text-xs font-mono uppercase tracking-wider transition-all"
               />
             </div>
             <button
               type="submit"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#000000] hover:scale-[1.03] active:scale-[0.98] text-[#FFFFFF] font-medium text-sm transition-transform duration-200 shadow-md flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-xs bg-black hover:bg-neutral-800 text-white text-[11px] font-mono uppercase tracking-wider font-bold transition-colors shadow-xs flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Navigation className="w-4 h-4" />
-              Trace Trajectory
+              <Navigation className="w-3.5 h-3.5" />
+              TRACE ROUTE
             </button>
           </form>
 
           {/* Quick Select Preset Vehicle Chips */}
-          <div className="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-black/10">
-            <span className="text-xs text-[#6F6F6F] flex items-center gap-1.5 font-medium mr-1">
-              <Zap className="w-3.5 h-3.5 text-amber-500" /> Presets:
+          <div className="flex flex-wrap items-center gap-1.5 mt-3 pt-3 border-t border-black/10">
+            <span className="text-[10.5px] font-mono uppercase tracking-wider text-neutral-500 flex items-center gap-1 font-semibold mr-1">
+              <Zap className="w-3 h-3 text-black" /> PRESETS:
             </span>
             {Object.keys(DISTRICT_TRAJECTORIES).map((p) => {
               const isSelected = cleanPlate(activePlate) === p;
@@ -686,10 +678,10 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
                 <button
                   key={p}
                   onClick={() => handleSelectChip(p)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all duration-200 cursor-pointer ${
+                  className={`px-2.5 py-1 rounded-xs text-[10.5px] font-mono uppercase tracking-wider transition-colors cursor-pointer border ${
                     isSelected
-                      ? 'bg-[#000000] text-[#FFFFFF] shadow-sm'
-                      : 'bg-[#F3F4F6] text-[#6F6F6F] hover:bg-[#E5E7EB] hover:text-[#000000]'
+                      ? 'bg-black text-white border-black font-bold'
+                      : 'bg-white text-neutral-700 border-black/20 hover:border-black hover:text-black'
                   }`}
                 >
                   {p}
@@ -703,40 +695,39 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
       {/* DISTRICT-LEVEL GEOGRAPHICAL MAP SECTION */}
       <div id="district-map-section" className="max-w-7xl mx-auto px-6 sm:px-8 mt-12">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-[#6F6F6F] mb-1">
-              Geographical Surveillance Mesh
+            <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-500 mb-0.5">
+              GEOGRAPHICAL SURVEILLANCE
             </div>
-            <h2 className="font-sans text-3xl sm:text-4xl text-[#000000] font-bold tracking-tight">
-              District Boundary &amp; Arterial Expressway Mapping
+            <h2 className="font-sans text-2xl sm:text-3xl text-black font-bold tracking-tight uppercase">
+              DISTRICT PERIMETER &amp; CORRIDOR MAP
             </h2>
-            <p className="text-sm text-[#6F6F6F] mt-1 max-w-2xl">
-              Authentic district boundaries across Karnataka &amp; transit corridors (NH-275, NH-44).
-              Hover or click districts to inspect active perimeter cameras and road corridors.
+            <p className="text-xs text-neutral-600 mt-0.5 max-w-xl font-mono">
+              Perimeter cameras and highway road corridors across Karnataka.
             </p>
           </div>
 
           {/* District Filter Buttons */}
-          <div className="flex flex-wrap gap-1.5 bg-[#F3F4F6] p-1.5 rounded-2xl border border-black/5">
+          <div className="flex flex-wrap gap-1 bg-white p-1 rounded-xs border border-black/15">
             <button
               onClick={() => setActiveDistrictFilter('all')}
-              className={`px-3 py-1 rounded-xl text-xs font-medium transition-all cursor-pointer ${
+              className={`px-2.5 py-1 rounded-xs text-[10.5px] font-mono uppercase tracking-wider transition-all cursor-pointer ${
                 activeDistrictFilter === 'all'
-                  ? 'bg-white text-black shadow-sm font-semibold'
-                  : 'text-[#6F6F6F] hover:text-black'
+                  ? 'bg-black text-white font-bold'
+                  : 'text-neutral-600 hover:text-black'
               }`}
             >
-              All Districts
+              ALL
             </button>
             {KARNATAKA_DISTRICTS.map((d) => (
               <button
                 key={d.id}
                 onClick={() => setActiveDistrictFilter(d.id)}
-                className={`px-3 py-1 rounded-xl text-xs font-medium transition-all cursor-pointer ${
+                className={`px-2.5 py-1 rounded-xs text-[10.5px] font-mono uppercase tracking-wider transition-all cursor-pointer ${
                   activeDistrictFilter === d.id
-                    ? 'bg-white text-black shadow-sm font-semibold'
-                    : 'text-[#6F6F6F] hover:text-black'
+                    ? 'bg-black text-white font-bold'
+                    : 'text-neutral-600 hover:text-black'
                 }`}
               >
                 {d.name.replace(' District', '')}
@@ -764,95 +755,93 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
           {/* Right Column: Trajectory Telemetry & District Transit Stats */}
           <div className="lg:col-span-4 space-y-4">
             {/* Vehicle Profile Card */}
-            <div className="bg-[#F9FAFB] border border-black/10 rounded-3xl p-6 shadow-sm">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#6F6F6F]">
-                  Target Profile
+            <div className="bg-white border border-black/15 rounded-xs p-4 shadow-xs">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 font-bold">
+                  TARGET PROFILE
                 </span>
-                <span className="px-2.5 py-1 rounded-full bg-black text-white text-[11px] font-mono font-bold">
+                <span className="px-2 py-0.5 rounded-xs bg-black text-white text-[11px] font-mono font-bold tracking-wider">
                   {currentTrajectory.plate}
                 </span>
               </div>
-              <div className="font-sans text-2xl text-[#000000] font-bold leading-tight">
+              <div className="font-mono text-xl text-black font-bold leading-tight">
                 {currentTrajectory.vehicleModel}
               </div>
-              <div className="text-xs text-[#6F6F6F] mt-1">{currentTrajectory.vehicleType}</div>
+              <div className="text-[11px] text-neutral-500 font-mono mt-0.5">{currentTrajectory.vehicleType}</div>
 
               {/* Transit Corridor Specs */}
-              <div className="mt-6 space-y-3 pt-4 border-t border-black/10 text-xs">
+              <div className="mt-4 space-y-2 pt-3 border-t border-black/10 text-xs font-mono">
                 <div className="flex justify-between items-center">
-                  <span className="text-[#6F6F6F]">Highway Corridor:</span>
-                  <span className="font-mono font-semibold text-black">{currentTrajectory.highwayCorridor}</span>
+                  <span className="text-neutral-500 text-[11px]">CORRIDOR:</span>
+                  <span className="font-semibold text-black">{currentTrajectory.highwayCorridor}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-[#6F6F6F]">Transit Distance:</span>
-                  <span className="font-mono font-semibold text-black">{currentTrajectory.distanceKm} km</span>
+                  <span className="text-neutral-500 text-[11px]">DISTANCE:</span>
+                  <span className="font-semibold text-black">{currentTrajectory.distanceKm} km</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-[#6F6F6F]">Travel Duration:</span>
-                  <span className="font-mono font-semibold text-black">{currentTrajectory.durationMinutes} minutes</span>
+                  <span className="text-neutral-500 text-[11px]">DURATION:</span>
+                  <span className="font-semibold text-black">{currentTrajectory.durationMinutes} min</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-[#6F6F6F]">Estimated Velocity:</span>
-                  <span className="font-mono font-bold text-black">{currentTrajectory.avgSpeedKmh} km/h</span>
+                  <span className="text-neutral-500 text-[11px]">EST. VELOCITY:</span>
+                  <span className="font-bold text-black">{currentTrajectory.avgSpeedKmh} km/h</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-[#6F6F6F]">Transit Compass Heading:</span>
-                  <span className="font-mono font-semibold text-black">{currentTrajectory.transitHeading}</span>
+                  <span className="text-neutral-500 text-[11px]">HEADING:</span>
+                  <span className="font-semibold text-black">{currentTrajectory.transitHeading}</span>
                 </div>
               </div>
             </div>
 
             {/* Origin District Sighting Card */}
-            <div className="bg-white border-2 border-blue-100 rounded-3xl p-5 shadow-sm">
-              <div className="flex items-center justify-between mb-2">
-                <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-blue-700 uppercase tracking-wider">
-                  <span className="w-2 h-2 rounded-full bg-blue-600" />
-                  Origin Appearance
+            <div className="bg-white border border-black/15 rounded-xs p-4 shadow-xs">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-black uppercase tracking-wider">
+                  ORIGIN APPEARANCE
                 </span>
-                <span className="text-xs font-mono text-[#6F6F6F]">
+                <span className="text-[10px] font-mono text-neutral-500">
                   {currentTrajectory.firstSeen.timestamp}
                 </span>
               </div>
-              <div className="font-sans text-lg font-bold text-black">
+              <div className="font-mono text-base font-bold text-black">
                 {currentTrajectory.firstSeen.districtName}
               </div>
-              <div className="text-xs text-[#6F6F6F] mt-0.5">
-                Camera: <span className="font-mono font-semibold text-black">{currentTrajectory.firstSeen.cameraName}</span>
+              <div className="text-[11px] text-neutral-600 font-mono mt-0.5">
+                Camera: <span className="font-bold text-black">{currentTrajectory.firstSeen.cameraName}</span>
               </div>
-              <div className="text-[11px] font-mono text-blue-600 mt-2 font-medium">
-                Speed at Perimeter: {currentTrajectory.firstSeen.speedKmh} km/h
+              <div className="text-[10.5px] font-mono text-neutral-700 mt-1.5 font-semibold">
+                Velocity at Perimeter: {currentTrajectory.firstSeen.speedKmh} km/h
               </div>
             </div>
 
             {/* Subsequent Reappearance District Card */}
             {currentTrajectory.reappearedAt ? (
-              <div className="bg-white border-2 border-emerald-100 rounded-3xl p-5 shadow-sm">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-700 uppercase tracking-wider">
-                    <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-                    Reappearance Sighting
+              <div className="bg-white border border-black/15 rounded-xs p-4 shadow-xs">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider">
+                    REAPPEARANCE SIGHTING
                   </span>
-                  <span className="text-xs font-mono text-[#6F6F6F]">
+                  <span className="text-[10px] font-mono text-neutral-500">
                     {currentTrajectory.reappearedAt.timestamp}
                   </span>
                 </div>
-                <div className="font-sans text-lg font-bold text-black">
+                <div className="font-mono text-base font-bold text-black">
                   {currentTrajectory.reappearedAt.districtName}
                 </div>
-                <div className="text-xs text-[#6F6F6F] mt-0.5">
+                <div className="text-[11px] text-neutral-600 font-mono mt-0.5">
                   Camera:{' '}
-                  <span className="font-mono font-semibold text-black">
+                  <span className="font-bold text-black">
                     {currentTrajectory.reappearedAt.cameraName}
                   </span>
                 </div>
-                <div className="text-[11px] font-mono text-emerald-600 mt-2 font-medium">
-                  Speed at Toll Gate: {currentTrajectory.reappearedAt.speedKmh} km/h
+                <div className="text-[10.5px] font-mono text-emerald-700 mt-1.5 font-semibold">
+                  Velocity at Toll: {currentTrajectory.reappearedAt.speedKmh} km/h
                 </div>
               </div>
             ) : (
-              <div className="p-5 rounded-3xl bg-[#F9FAFB] border border-black/10 text-center text-xs text-[#6F6F6F]">
-                No secondary reappearance recorded for this vehicle.
+              <div className="p-4 rounded-xs bg-neutral-50 border border-black/15 text-center text-xs font-mono text-neutral-500">
+                NO SECONDARY SIGHTING RECORDED
               </div>
             )}
           </div>
@@ -860,67 +849,60 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
       </div>
 
       {/* DUAL PHOTOGRAPHIC EVIDENCE SECTION */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 mt-16 pt-12 border-t border-black/10">
-        <div className="mb-8">
-          <div className="text-xs font-semibold uppercase tracking-wider text-[#6F6F6F] mb-1">
-            Optical Verification Dossier
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 mt-12 pt-8 border-t border-black/15">
+        <div className="mb-6">
+          <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-500 mb-0.5">
+            OPTICAL EVIDENCE LOG
           </div>
-          <h2 className="font-sans text-3xl sm:text-4xl text-[#000000] font-bold tracking-tight">
-            1 &amp; 2 Photographic Evidence Log
+          <h2 className="font-sans text-2xl sm:text-3xl text-black font-bold tracking-tight uppercase">
+            SIGHTING CAPTURES
           </h2>
-          <p className="text-sm text-[#6F6F6F] mt-1 max-w-2xl">
-            Surveillance captures comparing where the vehicle appeared first (Camera 1) and where it
-            subsequently reappeared (Camera 2) with vehicle context and optical plate crops.
+          <p className="text-xs text-neutral-600 mt-0.5 max-w-xl font-mono">
+            Optical surveillance captures comparing initial detection and subsequent toll reappearance.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Sighting 1 Photos Card */}
-          <div className="bg-[#F9FAFB] border border-black/10 rounded-3xl p-6 shadow-sm">
-            <div className="flex items-center justify-between mb-4">
+          <div className="bg-white border border-black/15 rounded-xs p-4 shadow-xs">
+            <div className="flex items-center justify-between mb-3">
               <div>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-mono font-semibold">
-                  <MapPin className="w-3 h-3" /> Initial Appearance: {currentTrajectory.firstSeen.cameraId}
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs bg-black text-white text-[10px] font-mono uppercase tracking-wider font-bold">
+                  <MapPin className="w-2.5 h-2.5" /> ORIGIN: {currentTrajectory.firstSeen.cameraId}
                 </span>
-                <div className="text-sm font-semibold text-black mt-2">
+                <div className="text-xs font-mono font-bold text-black mt-1.5">
                   {currentTrajectory.firstSeen.districtName}
                 </div>
-                <div className="text-xs text-[#6F6F6F] font-mono">{currentTrajectory.firstSeen.timestamp}</div>
+                <div className="text-[10.5px] text-neutral-500 font-mono">{currentTrajectory.firstSeen.timestamp}</div>
               </div>
             </div>
 
             {/* 2 Photos for Appearance */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-black/5 border border-black/10 relative group">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="aspect-[4/3] rounded-xs overflow-hidden bg-black rounded-xs border border-black/20 relative group">
                 <img
                   src={resolvePhotoUrl(currentTrajectory.firstSeen.photoVehicle)}
                   alt={currentTrajectory.firstSeen.photoLabel1}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover"
                   onError={(e) => {
                     (e.target as HTMLElement).style.display = 'none';
                   }}
                 />
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <Car className="w-8 h-8 text-black/15" />
-                </div>
-                <div className="absolute bottom-2 left-2 right-2 bg-white/90 backdrop-blur-md p-1.5 rounded-lg text-[10px] font-mono text-black truncate shadow-sm">
+                <div className="absolute bottom-0 inset-x-0 bg-black/85 p-1.5 text-[9px] font-mono uppercase tracking-wider text-white truncate">
                   {currentTrajectory.firstSeen.photoLabel1}
                 </div>
               </div>
 
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-black/5 border border-black/10 relative group">
+              <div className="aspect-[4/3] rounded-xs overflow-hidden bg-black rounded-xs border border-black/20 relative group flex items-center justify-center">
                 <img
                   src={resolvePhotoUrl(currentTrajectory.firstSeen.photoPlate)}
                   alt={currentTrajectory.firstSeen.photoLabel2}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-contain p-1"
                   onError={(e) => {
                     (e.target as HTMLElement).style.display = 'none';
                   }}
                 />
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <span className="text-xs font-mono font-bold text-black/20">OCR SCAN</span>
-                </div>
-                <div className="absolute bottom-2 left-2 right-2 bg-white/90 backdrop-blur-md p-1.5 rounded-lg text-[10px] font-mono text-black font-semibold truncate shadow-sm">
+                <div className="absolute bottom-0 inset-x-0 bg-black/85 p-1.5 text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-bold truncate">
                   {currentTrajectory.firstSeen.photoLabel2}
                 </div>
               </div>
@@ -929,63 +911,57 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
 
           {/* Sighting 2 Photos Card */}
           {currentTrajectory.reappearedAt ? (
-            <div className="bg-[#F9FAFB] border border-black/10 rounded-3xl p-6 shadow-sm">
-              <div className="flex items-center justify-between mb-4">
+            <div className="bg-white border border-black/15 rounded-xs p-4 shadow-xs">
+              <div className="flex items-center justify-between mb-3">
                 <div>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-mono font-semibold">
-                    <Navigation className="w-3 h-3" /> Reappeared: {currentTrajectory.reappearedAt.cameraId}
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs bg-emerald-950 text-emerald-300 text-[10px] font-mono uppercase tracking-wider font-bold">
+                    <Navigation className="w-2.5 h-2.5" /> REAPPEARED: {currentTrajectory.reappearedAt.cameraId}
                   </span>
-                  <div className="text-sm font-semibold text-black mt-2">
+                  <div className="text-xs font-mono font-bold text-black mt-1.5">
                     {currentTrajectory.reappearedAt.districtName}
                   </div>
-                  <div className="text-xs text-[#6F6F6F] font-mono">
+                  <div className="text-[10.5px] text-neutral-500 font-mono">
                     {currentTrajectory.reappearedAt.timestamp}
                   </div>
                 </div>
               </div>
 
               {/* 2 Photos for Reappearance */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-black/5 border border-black/10 relative group">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="aspect-[4/3] rounded-xs overflow-hidden bg-black rounded-xs border border-black/20 relative group">
                   <img
                     src={resolvePhotoUrl(currentTrajectory.reappearedAt.photoVehicle)}
                     alt={currentTrajectory.reappearedAt.photoLabel1}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-full object-cover"
                     onError={(e) => {
                       (e.target as HTMLElement).style.display = 'none';
                     }}
                   />
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <Car className="w-8 h-8 text-black/15" />
-                  </div>
-                  <div className="absolute bottom-2 left-2 right-2 bg-white/90 backdrop-blur-md p-1.5 rounded-lg text-[10px] font-mono text-black truncate shadow-sm">
+                  <div className="absolute bottom-0 inset-x-0 bg-black/85 p-1.5 text-[9px] font-mono uppercase tracking-wider text-white truncate">
                     {currentTrajectory.reappearedAt.photoLabel1}
                   </div>
                 </div>
 
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-black/5 border border-black/10 relative group">
+                <div className="aspect-[4/3] rounded-xs overflow-hidden bg-black rounded-xs border border-black/20 relative group flex items-center justify-center">
                   <img
                     src={resolvePhotoUrl(currentTrajectory.reappearedAt.photoPlate)}
                     alt={currentTrajectory.reappearedAt.photoLabel2}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-full object-contain p-1"
                     onError={(e) => {
                       (e.target as HTMLElement).style.display = 'none';
                     }}
                   />
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="text-xs font-mono font-bold text-black/20">OCR SCAN</span>
-                  </div>
-                  <div className="absolute bottom-2 left-2 right-2 bg-white/90 backdrop-blur-md p-1.5 rounded-lg text-[10px] font-mono text-black font-semibold truncate shadow-sm">
+                  <div className="absolute bottom-0 inset-x-0 bg-black/85 p-1.5 text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-bold truncate">
                     {currentTrajectory.reappearedAt.photoLabel2}
                   </div>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="bg-[#F9FAFB] border border-black/10 rounded-3xl p-6 flex flex-col items-center justify-center text-center">
-              <div className="text-sm font-semibold text-black">No Secondary Reappearance Recorded</div>
-              <p className="text-xs text-[#6F6F6F] mt-1 max-w-xs">
-                This vehicle was only logged at a single district perimeter checkpoint.
+            <div className="bg-neutral-50 border border-black/15 rounded-xs p-6 flex flex-col items-center justify-center text-center">
+              <div className="text-xs font-mono uppercase tracking-wider font-bold text-black">NO SECONDARY REAPPEARANCE RECORDED</div>
+              <p className="text-[11px] text-neutral-500 mt-1 max-w-xs font-mono">
+                Logged exclusively at initial district checkpoint.
               </p>
             </div>
           )}

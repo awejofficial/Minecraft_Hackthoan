@@ -147,197 +147,190 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
         </p>
       </div>
 
-      {/* GPU Hardware Acceleration Dashboard */}
-      <div className="bg-gradient-to-r from-neutral-950 via-neutral-900 to-black text-white rounded-3xl p-6 sm:p-7 mb-8 border border-white/10 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="flex items-center gap-4 relative z-10">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
-            <Zap className="w-6 h-6" />
+      {/* GPU Hardware Acceleration Dashboard (SpaceX Minimalist Console) */}
+      <div className="bg-black text-white rounded-xs p-5 mb-6 border border-white/15 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xs bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0">
+            <Zap className="w-4 h-4 text-emerald-400" />
           </div>
           <div>
-            <div className="flex items-center gap-2.5">
-              <h3 className="font-sans text-xl font-bold text-white tracking-wide">
-                Hardware-Accelerated ANPR Engine
+            <div className="flex items-center gap-2">
+              <h3 className="font-mono text-sm font-bold text-white uppercase tracking-wider">
+                ANPR INFERENCE ENGINE
               </h3>
-              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-[11px] font-mono text-emerald-300 font-semibold flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="px-2 py-0.2 rounded-xs bg-emerald-950 border border-emerald-500/40 text-[9.5px] font-mono text-emerald-400 font-bold uppercase tracking-wider">
                 CUDA ACTIVE
               </span>
             </div>
-            <p className="text-xs text-neutral-400 font-sans mt-1">
-              NVIDIA GeForce RTX 2050 (4.0 GB VRAM) • PyTorch 2.11 FP16 Tensor Cores • PaddleOCR GPU
+            <p className="text-[11px] text-neutral-400 font-mono mt-0.5">
+              NVIDIA RTX 2050 (4.0 GB VRAM) • PyTorch 2.11 FP16 Tensor Cores
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-6 text-xs font-mono relative z-10">
+        <div className="flex items-center gap-5 text-xs font-mono">
           <div>
-            <span className="text-neutral-400 block text-[10px] uppercase tracking-wider">Camera Feeds</span>
-            <span className="text-white font-bold text-sm">{(data?.camera_options?.length) || 3} Feeds</span>
+            <span className="text-neutral-500 block text-[9px] uppercase tracking-widest font-bold">FEEDS</span>
+            <span className="text-white font-bold text-xs">{(data?.camera_options?.length) || 3} CAMERAS</span>
           </div>
-          <div className="h-8 w-px bg-white/15" />
+          <div className="h-6 w-px bg-white/20" />
           <div>
-            <span className="text-neutral-400 block text-[10px] uppercase tracking-wider">Syntax Filter</span>
-            <span className="text-emerald-400 font-bold text-sm">Active (Indian RTO Regex)</span>
+            <span className="text-neutral-500 block text-[9px] uppercase tracking-widest font-bold">RTO PARSER</span>
+            <span className="text-white font-bold text-xs">ACTIVE</span>
           </div>
         </div>
       </div>
 
       {/* Overview Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-        <div className="bg-white border border-black/10 rounded-3xl p-6 shadow-sm">
-          <span className="text-xs text-[#6F6F6F] uppercase tracking-wider block mb-1">
-            Database Entries
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="bg-white border border-black/15 rounded-xs p-4 shadow-xs">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 block mb-1 font-bold">
+            DATABASE ENTRIES
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-mono font-bold text-black">
+            <span className="text-2xl sm:text-3xl font-mono font-bold text-black">
               {data?.total_records || 0}
             </span>
-            <span className="text-xs text-emerald-600 font-medium">Vehicles</span>
+            <span className="text-xs font-mono text-neutral-500 uppercase">Records</span>
           </div>
         </div>
 
-        <div className="bg-white border border-black/10 rounded-3xl p-6 shadow-sm">
-          <span className="text-xs text-[#6F6F6F] uppercase tracking-wider block mb-1">
-            Standard Format Verified
+        <div className="bg-white border border-black/15 rounded-xs p-4 shadow-xs">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 block mb-1 font-bold">
+            STANDARD VERIFIED
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-mono font-bold text-emerald-600">
+            <span className="text-2xl sm:text-3xl font-mono font-bold text-emerald-700">
               {data?.verified_standard_count || 0}
             </span>
-            <span className="text-xs text-[#6F6F6F]">Syntax Checked</span>
+            <span className="text-xs font-mono text-neutral-500 uppercase">RTO Match</span>
           </div>
         </div>
 
-        <div className="bg-white border border-black/10 rounded-3xl p-6 shadow-sm">
-          <span className="text-xs text-[#6F6F6F] uppercase tracking-wider block mb-1">
-            Active Cameras
+        <div className="bg-white border border-black/15 rounded-xs p-4 shadow-xs">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 block mb-1 font-bold">
+            ACTIVE CAMERAS
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-mono font-bold text-black">
+            <span className="text-2xl sm:text-3xl font-mono font-bold text-black">
               {(data?.camera_options?.length) || 3}
             </span>
-            <span className="text-xs text-[#6F6F6F]">Feeds Tracked</span>
+            <span className="text-xs font-mono text-neutral-500 uppercase">Feeds</span>
           </div>
         </div>
 
-        <div className="bg-white border border-black/10 rounded-3xl p-6 shadow-sm">
-          <span className="text-xs text-[#6F6F6F] uppercase tracking-wider block mb-1">
-            Format Accuracy Filter
+        <div className="bg-white border border-black/15 rounded-xs p-4 shadow-xs">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 block mb-1 font-bold">
+            FILTER MODE
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-mono font-bold text-black">
-              {validOnly ? '100%' : 'Raw View'}
+            <span className="text-2xl sm:text-3xl font-mono font-bold text-black">
+              {validOnly ? 'STRICT' : 'RAW'}
             </span>
-            <span className="text-xs text-emerald-600 font-medium">
-              {validOnly ? 'Strict Mode' : 'All OCR'}
+            <span className="text-xs font-mono text-neutral-500 uppercase">
+              {validOnly ? 'Verified' : 'All OCR'}
             </span>
           </div>
         </div>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white border border-black/10 rounded-3xl p-6 shadow-sm mb-8 space-y-4">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="bg-white border border-black/15 rounded-xs p-4 shadow-xs mb-6 space-y-3">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
           {/* Search Form */}
           <form onSubmit={handleSearchSubmit} className="flex-1 flex gap-2">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6F6F6F]" />
+              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search plate (e.g. KA05MR9633), district, or state..."
-                className="w-full pl-10 pr-4 py-3 bg-surface border border-black/10 rounded-2xl text-sm font-mono text-black placeholder:font-sans placeholder:text-[#6F6F6F] focus:outline-none focus:ring-2 focus:ring-black/20"
+                placeholder="SEARCH REGISTRATION, DISTRICT, OR STATE..."
+                className="w-full pl-9 pr-3 py-2 bg-neutral-50 hover:bg-white focus:bg-white border border-black/20 rounded-xs text-xs font-mono text-black placeholder:text-neutral-400 focus:outline-none focus:border-black uppercase tracking-wider"
               />
             </div>
             <button
               type="submit"
-              className="px-6 py-3 bg-black text-white text-xs font-medium rounded-2xl hover:bg-black/90 transition-transform active:scale-95 cursor-pointer shadow-sm"
+              className="px-4 py-2 bg-black text-white text-[11px] font-mono uppercase tracking-wider font-bold rounded-xs hover:bg-neutral-800 transition-colors cursor-pointer"
             >
-              Filter
+              FILTER
             </button>
           </form>
 
           {/* Camera Dropdown Filter */}
           <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-[#6F6F6F]" />
+            <Filter className="w-3.5 h-3.5 text-neutral-500" />
             <select
               value={selectedCamera}
               onChange={(e) => setSelectedCamera(e.target.value)}
-              className="bg-surface border border-black/10 rounded-2xl px-4 py-3 text-xs font-medium text-black focus:outline-none cursor-pointer"
+              className="bg-white border border-black/20 rounded-xs px-3 py-2 text-xs font-mono uppercase text-black focus:outline-none focus:border-black cursor-pointer"
             >
-              <option value="ALL">All Junction Cameras</option>
-              <option value="CAM-01">CAM-01 • Main Junction</option>
-              <option value="CAM-02">CAM-02 • East Expressway</option>
-              <option value="CAM-04">CAM-04 • South Boulevard</option>
+              <option value="ALL">ALL CAMERAS</option>
+              <option value="CAM-01">CAM-01 • Silk Board</option>
+              <option value="CAM-02">CAM-02 • Electronic City</option>
+              <option value="CAM-04">CAM-04 • Kengeri NICE</option>
             </select>
 
             {/* Export Button */}
             <button
               onClick={handleExportCSV}
               disabled={!data || !Array.isArray(data.records) || data.records.length === 0}
-              className="flex items-center gap-1.5 px-4 py-3 rounded-2xl border border-black/10 bg-white hover:bg-black/5 text-black text-xs font-medium transition-all disabled:opacity-40 cursor-pointer shadow-xs"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xs border border-black/20 bg-white hover:bg-neutral-100 text-black text-[11px] font-mono uppercase tracking-wider font-bold transition-all disabled:opacity-40 cursor-pointer"
               title="Download database as CSV"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Export CSV</span>
+              <span>EXPORT CSV</span>
             </button>
           </div>
         </div>
 
         {/* Format Verification Mode Toggle */}
-        <div className="flex flex-wrap items-center justify-between pt-3 border-t border-black/5 gap-3">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold text-[#6F6F6F] uppercase tracking-wider">
-              Verification Engine:
+        <div className="flex flex-wrap items-center justify-between pt-2.5 border-t border-black/10 gap-2">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-mono font-bold text-neutral-500 uppercase tracking-widest">
+              PARSER MODE:
             </span>
             <button
               type="button"
               onClick={() => setValidOnly(true)}
-              className={`text-xs font-medium px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${
+              className={`text-[10.5px] font-mono uppercase tracking-wider px-3 py-1 rounded-xs border transition-colors cursor-pointer ${
                 validOnly
-                  ? 'bg-black text-white border-black shadow-xs'
-                  : 'bg-surface hover:bg-black/5 text-[#000000] border-black/10'
+                  ? 'bg-black text-white border-black font-bold'
+                  : 'bg-white text-neutral-600 border-black/20 hover:border-black hover:text-black'
               }`}
             >
-              ✓ Standard Plates Only (Filtered OCR)
+              STANDARD PLATES ONLY
             </button>
             <button
               type="button"
               onClick={() => setValidOnly(false)}
-              className={`text-xs font-medium px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${
+              className={`text-[10.5px] font-mono uppercase tracking-wider px-3 py-1 rounded-xs border transition-colors cursor-pointer ${
                 !validOnly
-                  ? 'bg-black text-white border-black shadow-xs'
-                  : 'bg-surface hover:bg-black/5 text-[#000000] border-black/10'
+                  ? 'bg-black text-white border-black font-bold'
+                  : 'bg-white text-neutral-600 border-black/20 hover:border-black hover:text-black'
               }`}
             >
-              Show All (Include Raw OCR Noise)
+              INCLUDE RAW OCR NOISE
             </button>
-          </div>
-
-          <div className="flex items-center gap-1.5 text-xs text-[#6F6F6F]">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-            <span>AI automatically repairs OCR confusions (e.g., '0' ↔ 'O', '1' ↔ 'I', '5' ↔ 'S')</span>
           </div>
         </div>
       </div>
 
       {/* Database Table */}
-      <div className="bg-white border border-black/10 rounded-3xl overflow-hidden shadow-xl shadow-black/5">
+      {/* Database Table (SpaceX Dense High-Precision Grid) */}
+      <div className="bg-white border border-black/15 rounded-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-surface/80 border-b border-black/10 uppercase tracking-wider text-[11px] text-[#6F6F6F] font-semibold">
+          <table className="w-full text-left text-xs font-mono">
+            <thead className="bg-neutral-50 border-b border-black/10 uppercase tracking-wider text-[9.5px] text-neutral-600 font-bold">
               <tr>
-                <th className="py-4 px-5">Snapshot</th>
-                <th className="py-4 px-5">Registration Plate</th>
-                <th className="py-4 px-5">Format Match Status</th>
-                <th className="py-4 px-5">Camera & Junction</th>
-                <th className="py-4 px-5">Timeline Window</th>
-                <th className="py-4 px-5">Sightings</th>
-                <th className="py-4 px-5">Confidence</th>
-                <th className="py-4 px-5 text-right">Action</th>
+                <th className="py-2.5 px-3">CROP</th>
+                <th className="py-2.5 px-3">REGISTRATION</th>
+                <th className="py-2.5 px-3">STATUS</th>
+                <th className="py-2.5 px-3">CAMERA &amp; JUNCTION</th>
+                <th className="py-2.5 px-3">WINDOW</th>
+                <th className="py-2.5 px-2">READS</th>
+                <th className="py-2.5 px-3">ACCURACY</th>
+                <th className="py-2.5 px-3 text-right">ACTION</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-black/5">
@@ -366,12 +359,12 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
                       className="hover:bg-surface/50 transition-colors group"
                     >
                       {/* Snapshot Column */}
-                      <td className="py-3.5 px-5">
-                        <div className="relative w-20 h-12 rounded-lg overflow-hidden bg-black/5 border border-black/10 shrink-0">
+                      <td className="py-2.5 px-3">
+                        <div className="relative w-16 h-10 rounded-xs overflow-hidden bg-black border border-black/20 shrink-0">
                           <img
                             src={cropUrl}
                             alt={rec.plate}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200"
+                            className="w-full h-full object-cover"
                             onError={(e) => {
                               (e.target as HTMLElement).style.display = 'none';
                             }}
@@ -380,60 +373,40 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
                       </td>
 
                       {/* Registration Plate Column */}
-                      <td className="py-3.5 px-5">
-                        <div className="inline-flex items-center border border-black/80 rounded px-2.5 py-0.5 bg-gradient-to-b from-white to-gray-50 shadow-inner">
-                          <div className="flex flex-col items-center justify-center pr-1.5 mr-1.5 border-r border-black/30">
-                            <span className="text-[8px] font-bold text-blue-900 leading-none">IND</span>
-                          </div>
-                          <span className="font-mono font-bold text-sm text-black tracking-wider">
-                            {rec.plate}
-                          </span>
-                        </div>
+                      <td className="py-2.5 px-3">
+                        <span className="font-mono font-bold text-xs px-2 py-0.5 rounded-xs border border-black/20 bg-neutral-100 text-black inline-block">
+                          {rec.plate}
+                        </span>
                         {rec.state_code && (
-                          <div className="text-[10px] text-[#6F6F6F] mt-1 font-mono">
-                            State: <strong className="text-black">{rec.state_code}</strong>
-                            {rec.rto_district && <> • RTO: <strong className="text-black">{rec.rto_district}</strong></>}
-                            {rec.series && <> • Ser: <strong className="text-black">{rec.series}</strong></>}
+                          <div className="text-[10px] text-neutral-500 mt-0.5 font-mono">
+                            {rec.state_code} {rec.rto_district && `• ${rec.rto_district}`}
                           </div>
                         )}
                       </td>
 
                       {/* Format Match Status */}
-                      <td className="py-3.5 px-5">
+                      <td className="py-2.5 px-3">
                         {rec.validation_status === 'VERIFIED_STANDARD' ? (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-800 text-[11px] font-medium">
-                            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                            Standard Matched
+                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-xs bg-emerald-50 text-emerald-800 border border-emerald-300 text-[10px] font-mono uppercase font-bold">
+                            <CheckCircle2 className="w-2.5 h-2.5 text-emerald-600" />
+                            VERIFIED
                           </span>
                         ) : rec.validation_status === 'RECONSTRUCTED_STANDARD' ? (
-                          <div>
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-800 text-[11px] font-medium">
-                              <Sparkles className="w-3 h-3 text-blue-600" />
-                              Reconstructed
-                            </span>
-                            <span className="block text-[9px] text-[#6F6F6F] mt-0.5 font-mono">
-                              Raw: {rec.raw_plate}
-                            </span>
-                          </div>
+                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-xs bg-neutral-100 text-neutral-800 border border-neutral-300 text-[10px] font-mono uppercase font-bold">
+                            RECONSTRUCTED
+                          </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gray-100 text-gray-700 text-[11px] font-medium">
-                            <AlertTriangle className="w-3 h-3 text-amber-600" />
-                            Raw OCR Noise
+                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-xs bg-neutral-100 text-neutral-600 border border-neutral-200 text-[10px] font-mono uppercase">
+                            RAW NOISE
                           </span>
                         )}
-                        <span className="block text-[10px] text-[#6F6F6F] mt-0.5">
-                          {rec.state_name}
-                        </span>
                       </td>
 
                       {/* Camera & Location */}
-                      <td className="py-3.5 px-5">
-                        <div className="font-medium text-black">{rec.camera_name}</div>
-                        <div className="flex items-center gap-1.5 text-[10px] text-[#6F6F6F] mt-0.5">
-                          <span className="font-mono font-bold px-1.5 py-0.2 bg-black/5 rounded">
-                            {rec.camera_id}
-                          </span>
-                          <span>• Feed: {rec.video_name}</span>
+                      <td className="py-2.5 px-3">
+                        <div className="font-bold text-black">{rec.camera_name}</div>
+                        <div className="text-[10px] text-neutral-500 font-mono">
+                          {rec.camera_id} • {rec.video_name}
                         </div>
                       </td>
 
@@ -469,7 +442,7 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
 
                       {/* Action */}
                       <td className="py-3.5 px-5 text-right whitespace-nowrap">
-                        <div className="inline-flex items-center gap-1.5">
+                        <div className="inline-flex items-center gap-1">
                           <button
                             type="button"
                             onClick={() =>
@@ -486,11 +459,11 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
                                 imageUrl: cropUrl,
                               })
                             }
-                            className="px-2.5 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-600 hover:text-white border border-blue-200 text-blue-700 text-[11px] font-semibold transition-all cursor-pointer inline-flex items-center gap-1"
-                            title="Inspect high-resolution crop and OCR candidates"
+                            className="px-2 py-0.5 rounded-xs bg-black text-white text-[9.5px] font-mono uppercase tracking-wider font-bold hover:bg-neutral-800 transition-colors cursor-pointer inline-flex items-center gap-1"
+                            title="Inspect high-resolution crop"
                           >
-                            <Eye className="w-3 h-3" />
-                            <span>Read</span>
+                            <Eye className="w-2.5 h-2.5" />
+                            <span>READ</span>
                           </button>
 
                           <button
@@ -498,10 +471,10 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
                             onClick={() =>
                               onJumpToCamera(rec.video_name, rec.first_seen, rec.plate)
                             }
-                            className="px-2.5 py-1.5 rounded-xl bg-surface hover:bg-black hover:text-white border border-black/10 text-black text-[11px] font-medium transition-colors cursor-pointer inline-flex items-center gap-1"
+                            className="px-2 py-0.5 rounded-xs border border-black/20 bg-white text-black text-[9.5px] font-mono uppercase tracking-wider font-bold hover:bg-neutral-100 transition-colors cursor-pointer inline-flex items-center gap-1"
                           >
-                            <span>Video</span>
-                            <ExternalLink className="w-3 h-3" />
+                            <span>CLIP</span>
+                            <ExternalLink className="w-2.5 h-2.5" />
                           </button>
                         </div>
                       </td>

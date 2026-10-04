@@ -124,27 +124,27 @@ export const DashboardNav: React.FC = () => {
               <Link
                 key={`${item.href}-${idx}`}
                 href={item.href}
-                className={`relative group w-full py-2.5 px-1 rounded-xl flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
+                className={`relative group w-full py-2.5 px-1 rounded-sm flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
                   active
-                    ? "bg-white/12 text-white font-semibold shadow-xs"
-                    : "text-slate-400 hover:text-white hover:bg-white/6"
+                    ? "bg-white/10 text-white font-semibold"
+                    : "text-slate-400 hover:text-white hover:bg-white/5"
                 }`}
                 title={item.label}
               >
                 {/* Active Indicator Bar on Left */}
                 {active && (
-                  <span className="absolute left-0 top-2 bottom-2 w-1 rounded-r-full bg-blue-500 shadow-sm" />
+                  <span className="absolute left-0 top-1.5 bottom-1.5 w-0.5 bg-white shadow-sm" />
                 )}
 
                 <div className="relative">
                   <Icon
-                    className={`w-5 h-5 transition-transform group-hover:scale-110 ${
+                    className={`w-4 h-4 transition-transform group-hover:scale-105 ${
                       active ? "text-white" : "text-slate-400 group-hover:text-white"
                     }`}
                   />
                   {item.badge && (
                     <span
-                      className={`absolute -top-1.5 -right-2 px-1.5 py-0.2 rounded-full text-[9px] font-mono font-bold text-white ${item.badgeColor} shadow-xs animate-pulse`}
+                      className={`absolute -top-1.5 -right-2 px-1 py-0.2 rounded-xs text-[9px] font-mono font-bold text-white ${item.badgeColor} animate-pulse`}
                     >
                       {item.badge}
                     </span>
@@ -212,12 +212,12 @@ export const DashboardNav: React.FC = () => {
                 placeholder="Quick Plate Search... (e.g. KA05MR9633)"
                 value={quickSearch}
                 onChange={(e) => setQuickSearch(e.target.value)}
-                className="w-full pl-9 pr-14 py-1.5 rounded-xl border border-black/15 bg-slate-50/70 hover:bg-white focus:bg-white text-xs font-mono text-black placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all"
+                className="w-full pl-9 pr-14 py-1.5 rounded-xs border border-black/20 bg-slate-50/70 hover:bg-white focus:bg-white text-xs font-mono text-black placeholder:text-slate-400 focus:outline-none focus:border-black transition-all"
               />
               <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
               <button
                 type="submit"
-                className="absolute right-1 top-1/2 -translate-y-1/2 px-2 py-0.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-mono font-bold transition-colors cursor-pointer"
+                className="absolute right-1 top-1/2 -translate-y-1/2 px-2 py-0.5 rounded-xs bg-black hover:bg-neutral-800 text-white text-[10px] font-mono font-bold tracking-wider uppercase transition-colors cursor-pointer"
               >
                 Go
               </button>
@@ -225,25 +225,25 @@ export const DashboardNav: React.FC = () => {
           </form>
         </div>
 
-        {/* Right Side: Telemetry Dot & Officer Avatar */}
+        {/* Right Side: Telemetry & Officer Avatar */}
         <div className="flex items-center gap-3">
           {/* Engine Status Badge */}
-          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-mono text-emerald-800">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-semibold">CUDA GPU Active</span>
+          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xs bg-black text-[10px] font-mono uppercase tracking-wider text-white border border-black">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-bold">CUDA Active</span>
           </div>
 
-          {/* Officer Identity & Avatar (Rekor Scout Image 1, 2, 3, 4) */}
+          {/* Officer Identity & Avatar */}
           <div className="flex items-center gap-2 pl-2 border-l border-black/10">
             <div className="hidden xl:flex flex-col text-right">
               <span className="text-xs font-semibold text-black leading-tight truncate max-w-[130px]">
                 {officerEmail.split("@")[0]}
               </span>
-              <span className="text-[10px] font-mono text-slate-500">Operator</span>
+              <span className="text-[10px] font-mono uppercase text-slate-500">Operator</span>
             </div>
 
             <div
-              className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-700 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-xs ring-2 ring-black/5"
+              className="w-8 h-8 rounded-xs bg-black text-white flex items-center justify-center font-bold text-xs border border-black"
               title={officerEmail}
             >
               <User className="w-4 h-4" />

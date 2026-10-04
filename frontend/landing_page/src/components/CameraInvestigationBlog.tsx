@@ -77,59 +77,57 @@ export const CameraInvestigationBlog: React.FC<CameraInvestigationBlogProps> = (
           <BookOpen className="w-3.5 h-3.5 text-black" />
           <span>Surveillance Journal & Cross-Camera Intelligence</span>
         </div>
-        <h2 className="text-4xl sm:text-5xl font-sans font-bold text-[#000000] tracking-tight mb-4">
-          Multi-Camera Investigation Log
+        <h2 className="text-3xl sm:text-4xl font-sans font-bold text-black tracking-tight mb-2 uppercase">
+          MULTI-CAMERA INVESTIGATION LOG
         </h2>
-        <p className="text-[#6F6F6F] text-base max-w-2xl mx-auto font-sans leading-relaxed">
-          Enter any vehicle license plate to query the multi-camera network. Locate which
-          surveillance cameras recorded the vehicle, view photographic captures at each junction,
-          and track its path across the city grid.
+        <p className="text-neutral-600 text-xs sm:text-sm max-w-xl mx-auto font-mono">
+          Query cross-camera surveillance footage, optical crops, and junction detections.
         </p>
       </div>
 
       {/* Plate Search Input in Journal Style */}
-      <div className="max-w-2xl mx-auto mb-14">
+      <div className="max-w-2xl mx-auto mb-10">
         <form onSubmit={handleSubmit} className="flex gap-2">
           <div className="relative flex-1">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#6F6F6F]">
-              <Search className="w-5 h-5" />
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">
+              <Search className="w-4 h-4" />
             </div>
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Enter registration plate (e.g. KA05MR9633)..."
-              className="w-full bg-white border border-black/15 rounded-2xl pl-11 pr-4 py-4 text-base font-mono uppercase tracking-wider text-black placeholder:normal-case placeholder:font-sans placeholder:tracking-normal placeholder:text-[#6F6F6F]/60 focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-black transition-all shadow-sm"
+              placeholder="ENTER REGISTRATION PLATE (E.G. KA05MR9633)..."
+              className="w-full bg-neutral-50 hover:bg-white focus:bg-white border border-black/20 rounded-xs pl-10 pr-3 py-2.5 text-xs font-mono uppercase tracking-wider text-black placeholder:text-neutral-400 focus:outline-none focus:border-black transition-all"
             />
           </div>
           <button
             type="submit"
             disabled={isLoading}
-            className="rounded-2xl px-8 py-4 bg-black text-white font-medium text-sm transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center gap-2 cursor-pointer shadow-md"
+            className="rounded-xs px-6 py-2.5 bg-black text-white text-[11px] font-mono uppercase tracking-wider font-bold hover:bg-neutral-800 disabled:opacity-50 disabled:pointer-events-none flex items-center gap-1.5 cursor-pointer shadow-xs transition-colors"
           >
             {isLoading ? (
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             ) : (
               <>
-                <Sparkles className="w-4 h-4" />
-                <span>Locate Cameras</span>
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>SEARCH</span>
               </>
             )}
           </button>
         </form>
 
         {/* Suggested Plates */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs">
-          <span className="text-[#6F6F6F] font-medium">Quick Query:</span>
+        <div className="flex flex-wrap items-center justify-center gap-1.5 mt-3 text-xs">
+          <span className="text-neutral-500 font-mono text-[10px] uppercase tracking-wider font-bold">PRESETS:</span>
           {popularPlates.map((plate) => (
             <button
               key={plate}
               type="button"
               onClick={() => handleQuickChip(plate)}
-              className={`font-mono px-2.5 py-1 rounded-full border transition-all cursor-pointer ${
+              className={`font-mono px-2 py-0.5 rounded-xs text-[10.5px] uppercase tracking-wider border transition-colors cursor-pointer ${
                 query.toUpperCase() === plate
-                  ? 'bg-black text-white border-black shadow-xs'
-                  : 'bg-white hover:bg-black/5 text-[#000000] border-black/10'
+                  ? 'bg-black text-white border-black font-bold'
+                  : 'bg-white hover:border-black text-black border-black/20'
               }`}
             >
               {plate}
@@ -142,21 +140,21 @@ export const CameraInvestigationBlog: React.FC<CameraInvestigationBlogProps> = (
       {searchResult && (
         <div className="space-y-12">
           {/* Summary Banner */}
-          <div className="bg-white/90 backdrop-blur-xl border border-black/10 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="flex items-center gap-5">
-              <div className="w-14 h-14 rounded-2xl bg-black text-white flex items-center justify-center shrink-0 shadow-md">
-                <Cctv className="w-7 h-7" />
+          <div className="bg-white border border-black/15 rounded-xs p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xs bg-black text-white flex items-center justify-center shrink-0">
+                <Cctv className="w-5 h-5" />
               </div>
               <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#6F6F6F]">
-                    Target Vehicle
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-500">
+                    TARGET VEHICLE
                   </span>
-                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-800 text-[11px] font-medium">
-                    {searchResult.matched ? 'Active Sightings' : 'No Sightings'}
+                  <span className="px-1.5 py-0.2 rounded-xs bg-black text-white text-[9.5px] font-mono uppercase font-bold tracking-wider">
+                    {searchResult.matched ? 'ACTIVE SIGHTINGS' : 'NO MATCH'}
                   </span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-mono font-black text-black tracking-wider">
+                <h3 className="text-xl sm:text-2xl font-mono font-bold text-black tracking-wider">
                   {searchResult.cleaned_query || query.toUpperCase()}
                 </h3>
               </div>
@@ -222,32 +220,32 @@ export const CameraInvestigationBlog: React.FC<CameraInvestigationBlogProps> = (
                   return (
                     <div
                       key={sighting.camera_id}
-                      className="bg-white border border-black/10 rounded-3xl p-6 shadow-md hover:shadow-xl transition-all flex flex-col justify-between"
+                      className="bg-white border border-black/15 rounded-xs p-4 shadow-xs flex flex-col justify-between hover:border-black transition-colors"
                     >
                       <div>
                         {/* Camera Header */}
-                        <div className="flex items-start justify-between gap-3 mb-4">
+                        <div className="flex items-start justify-between gap-3 mb-3">
                           <div>
                             <div className="flex items-center gap-2 mb-1">
-                              <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-black text-white">
+                              <span className="font-mono text-xs font-bold px-1.5 py-0.2 rounded-xs bg-black text-white">
                                 {sighting.camera_id}
                               </span>
-                              <span className="text-xs text-[#6F6F6F] font-medium">
+                              <span className="text-[11px] text-neutral-500 font-mono">
                                 {sighting.camera_zone}
                               </span>
                             </div>
-                            <h5 className="font-sans text-base font-semibold text-black">
+                            <h5 className="font-mono text-sm font-bold text-black uppercase">
                               {sighting.camera_name}
                             </h5>
                           </div>
 
-                          <span className="text-xs font-mono px-2.5 py-1 rounded-full bg-surface border border-black/5 text-[#6F6F6F]">
-                            Feed: {sighting.video_name}
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded-xs bg-neutral-100 border border-black/15 text-neutral-600 uppercase">
+                            FEED: {sighting.video_name}
                           </span>
                         </div>
 
                         {/* Snapshot from this Camera */}
-                        <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-black/5 border border-black/10 mb-4">
+                        <div className="relative aspect-[16/9] rounded-xs overflow-hidden bg-black border border-black/20 mb-3">
                           <img
                             src={cropUrl}
                             alt={`${sighting.plate} on ${sighting.camera_id}`}
@@ -256,38 +254,38 @@ export const CameraInvestigationBlog: React.FC<CameraInvestigationBlogProps> = (
                               (e.target as HTMLElement).style.display = 'none';
                             }}
                           />
-                          <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md text-[11px] font-mono text-white flex items-center gap-1.5">
-                            <Clock className="w-3 h-3 text-emerald-400" />
-                            <span>First: {sighting.formatted_first_seen}</span>
+                          <div className="absolute top-2 left-2 px-2 py-0.5 rounded-xs bg-black/85 text-[10px] font-mono text-white flex items-center gap-1">
+                            <Clock className="w-2.5 h-2.5 text-emerald-400" />
+                            <span>FIRST: {sighting.formatted_first_seen}</span>
                           </div>
-                          <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md text-[11px] font-mono text-white">
-                            {sighting.total_sightings} frame detections
+                          <div className="absolute bottom-2 right-2 px-2 py-0.5 rounded-xs bg-black/85 text-[10px] font-mono text-white">
+                            {sighting.total_sightings} READS
                           </div>
                         </div>
 
                         {/* Details Grid */}
-                        <div className="grid grid-cols-2 gap-3 mb-5 text-xs">
-                          <div className="p-2.5 rounded-xl bg-surface border border-black/5">
-                            <span className="text-[#6F6F6F] block text-[10px] uppercase">
-                              Confidence
+                        <div className="grid grid-cols-2 gap-2 mb-4 text-xs font-mono">
+                          <div className="p-2 rounded-xs bg-neutral-50 border border-black/10">
+                            <span className="text-neutral-500 block text-[9px] uppercase tracking-wider">
+                              CONFIDENCE
                             </span>
-                            <span className="font-mono font-bold text-black flex items-center gap-1 mt-0.5">
+                            <span className="font-mono font-bold text-black flex items-center gap-1 mt-0.5 text-xs">
                               <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                              {Math.round(sighting.best_ocr_confidence * 100)}% Match
+                              {Math.round(sighting.best_ocr_confidence * 100)}%
                             </span>
                           </div>
-                          <div className="p-2.5 rounded-xl bg-surface border border-black/5">
-                            <span className="text-[#6F6F6F] block text-[10px] uppercase">
-                              Last Seen
+                          <div className="p-2 rounded-xs bg-neutral-50 border border-black/10">
+                            <span className="text-neutral-500 block text-[9px] uppercase tracking-wider">
+                              LAST SEEN
                             </span>
-                            <span className="font-mono font-bold text-black mt-0.5 block">
+                            <span className="font-mono font-bold text-black mt-0.5 block text-xs">
                               {sighting.formatted_last_seen}
                             </span>
                           </div>
                         </div>
                       </div>
 
-                      {/* Action Button to seek directly in main player */}
+                      {/* Action Button */}
                       <button
                         type="button"
                         onClick={() =>
@@ -297,10 +295,9 @@ export const CameraInvestigationBlog: React.FC<CameraInvestigationBlogProps> = (
                             sighting.plate
                           )
                         }
-                        className="w-full py-3 px-4 rounded-xl bg-black hover:bg-black/90 text-white text-xs font-medium transition-transform hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                        className="w-full py-2 px-3 rounded-xs bg-black hover:bg-neutral-800 text-white text-[11px] font-mono uppercase tracking-wider font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
                       >
-                        <span>Open & Play in {sighting.camera_id}</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
+                        SEEK IN STUDIO PLAYER
                       </button>
                     </div>
                   );
