@@ -216,7 +216,7 @@ export const PlateSearchSection: React.FC<PlateSearchSectionProps> = ({
           <Film className="w-3.5 h-3.5 text-black" />
           <span>Project Video Folder Mode</span>
         </div>
-        <h2 className="text-4xl sm:text-5xl font-serif text-[#000000] tracking-tight mb-3">
+        <h2 className="text-4xl sm:text-5xl font-sans font-bold text-[#000000] tracking-tight mb-3">
           Vehicle & Plate Timeline Spotter
         </h2>
         <p className="text-[#6F6F6F] text-sm sm:text-base max-w-xl mx-auto font-sans">
@@ -242,7 +242,7 @@ export const PlateSearchSection: React.FC<PlateSearchSectionProps> = ({
         {isDragOver && (
           <div className="absolute inset-0 z-30 rounded-3xl bg-emerald-500/10 backdrop-blur-xs flex flex-col items-center justify-center border-2 border-dashed border-emerald-500 pointer-events-none animate-in fade-in">
             <Upload className="w-10 h-10 text-emerald-600 animate-bounce mb-2" />
-            <span className="font-serif text-lg font-bold text-emerald-950">
+            <span className="font-sans text-lg font-bold text-emerald-950">
               Drop Traffic Video to Upload
             </span>
             <span className="text-xs font-mono text-emerald-800 mt-1">
@@ -459,7 +459,7 @@ export const PlateSearchSection: React.FC<PlateSearchSectionProps> = ({
                   <Zap className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-serif text-xl font-bold text-black">GPU ANPR Pipeline</h3>
+                  <h3 className="font-sans text-xl font-bold text-black">GPU ANPR Pipeline</h3>
                   <p className="text-xs text-[#6F6F6F] font-mono">
                     {activeGpuVideo || selectedVideo} • RTX 2050 FP16 & PaddleOCR
                   </p>
@@ -584,7 +584,7 @@ export const PlateSearchSection: React.FC<PlateSearchSectionProps> = ({
                 <Trash2 className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-lg font-serif font-bold text-black">
+                <h3 className="text-lg font-sans font-bold text-black">
                   Delete Selected Video?
                 </h3>
                 <p className="text-xs text-[#6F6F6F]">

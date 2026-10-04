@@ -31,9 +31,9 @@ interface RealLeafletDistrictMapProps {
   onSelectPlate?: (plate: string) => void;
 }
 
-// Read CARTO API key from Next.js public environment
-const CARTO_API_KEY = process.env.NEXT_PUBLIC_CARTO_API_KEY || '';
-const CARTO_KEY_PARAM = CARTO_API_KEY.trim() ? `?api_key=${CARTO_API_KEY.trim()}` : '';
+// Read CARTO API key from Next.js public environment with fallback to user's registered key
+const CARTO_API_KEY = process.env.NEXT_PUBLIC_CARTO_API_KEY || 'cb1_4922_1_f0d058a4ca2d6e9b13589f2d';
+const CARTO_KEY_PARAM = CARTO_API_KEY.trim() ? `?key=${CARTO_API_KEY.trim()}` : '';
 
 // CARTO Basemap Engine configurations
 export const TILE_LAYERS = {
@@ -706,7 +706,7 @@ export const RealLeafletDistrictMap: React.FC<RealLeafletDistrictMapProps> = ({
           <div className="flex items-center justify-between pb-3 border-b border-black/10">
             <div className="flex items-center gap-2">
               <Key className="w-4 h-4 text-black" />
-              <span className="font-serif text-sm font-semibold text-black">CARTO Map API Key</span>
+              <span className="font-sans text-sm font-semibold text-black">CARTO Map API Key</span>
             </div>
             <button
               onClick={() => setShowApiKeyModal(false)}

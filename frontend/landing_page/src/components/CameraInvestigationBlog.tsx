@@ -77,7 +77,7 @@ export const CameraInvestigationBlog: React.FC<CameraInvestigationBlogProps> = (
           <BookOpen className="w-3.5 h-3.5 text-black" />
           <span>Surveillance Journal & Cross-Camera Intelligence</span>
         </div>
-        <h2 className="text-4xl sm:text-5xl font-serif text-[#000000] tracking-tight mb-4">
+        <h2 className="text-4xl sm:text-5xl font-sans font-bold text-[#000000] tracking-tight mb-4">
           Multi-Camera Investigation Log
         </h2>
         <p className="text-[#6F6F6F] text-base max-w-2xl mx-auto font-sans leading-relaxed">

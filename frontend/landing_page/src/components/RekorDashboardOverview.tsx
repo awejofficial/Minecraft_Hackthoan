@@ -179,7 +179,7 @@ export const RekorDashboardOverview: React.FC = () => {
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#6F6F6F]">
                 CAMERAS
               </span>
-              <div className="text-4xl font-serif font-normal text-black mt-1">
+              <div className="text-4xl font-sans font-bold tracking-tight text-black mt-1">
                 {activeVideos.length > 0 ? activeVideos.length : 5}
               </div>
             </div>
@@ -204,7 +204,7 @@ export const RekorDashboardOverview: React.FC = () => {
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#6F6F6F]">
                 SITES / CORRIDORS
               </span>
-              <div className="text-4xl font-serif font-normal text-black mt-1">
+              <div className="text-4xl font-sans font-bold tracking-tight text-black mt-1">
                 4
               </div>
             </div>
@@ -229,7 +229,7 @@ export const RekorDashboardOverview: React.FC = () => {
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#6F6F6F]">
                 PLATES THIS WEEK
               </span>
-              <div className="text-4xl font-serif font-normal text-black mt-1">
+              <div className="text-4xl font-sans font-bold tracking-tight text-black mt-1">
                 {(totalPlatesCount / 1000).toFixed(2)}k
               </div>
             </div>
@@ -254,7 +254,7 @@ export const RekorDashboardOverview: React.FC = () => {
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#6F6F6F]">
                 RECENT ALERTS
               </span>
-              <div className="text-4xl font-serif font-normal text-rose-600 mt-1">
+              <div className="text-4xl font-sans font-bold tracking-tight text-rose-600 mt-1">
                 2
               </div>
             </div>
@@ -290,7 +290,7 @@ export const RekorDashboardOverview: React.FC = () => {
                 <option value="Ramanagara Expressway Toll">Ramanagara Expressway Toll</option>
                 <option value="Kengeri NICE Interchange">Kengeri NICE Interchange</option>
               </select>
-              <span className="text-xs font-serif font-semibold text-black hidden sm:inline">
+              <span className="text-xs font-sans font-semibold text-black hidden sm:inline">
                 Most Recent Plate Groups
               </span>
             </div>

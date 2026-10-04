@@ -30,7 +30,7 @@ export const DetectedVehiclesGallery: React.FC<DetectedVehiclesGalleryProps> = (
     <div className="w-full max-w-6xl mx-auto px-6 py-12">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h3 className="text-3xl font-serif text-[#000000] tracking-tight">
+          <h3 className="text-3xl font-sans font-bold text-[#000000] tracking-tight">
             Detected Vehicle Catalog
           </h3>
           <p className="text-sm text-[#6F6F6F]">

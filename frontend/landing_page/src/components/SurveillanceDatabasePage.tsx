@@ -137,7 +137,7 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
           <Database className="w-3.5 h-3.5 text-black" />
           <span>Surveillance Database & Registration Registry</span>
         </div>
-        <h2 className="text-4xl sm:text-5xl font-serif text-[#000000] tracking-tight mb-4">
+        <h2 className="text-4xl sm:text-5xl font-sans font-bold text-[#000000] tracking-tight mb-4">
           Vehicle Plate Intelligence Database
         </h2>
         <p className="text-[#6F6F6F] text-base max-w-2xl mx-auto font-sans leading-relaxed">
@@ -157,7 +157,7 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
           </div>
           <div>
             <div className="flex items-center gap-2.5">
-              <h3 className="font-serif text-xl font-bold text-white tracking-wide">
+              <h3 className="font-sans text-xl font-bold text-white tracking-wide">
                 Hardware-Accelerated ANPR Engine
               </h3>
               <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-[11px] font-mono text-emerald-300 font-semibold flex items-center gap-1">
@@ -191,7 +191,7 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
             Database Entries
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-serif font-bold text-black">
+            <span className="text-3xl font-mono font-bold text-black">
               {data?.total_records || 0}
             </span>
             <span className="text-xs text-emerald-600 font-medium">Vehicles</span>
@@ -203,7 +203,7 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
             Standard Format Verified
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-serif font-bold text-emerald-600">
+            <span className="text-3xl font-mono font-bold text-emerald-600">
               {data?.verified_standard_count || 0}
             </span>
             <span className="text-xs text-[#6F6F6F]">Syntax Checked</span>
@@ -215,7 +215,7 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
             Active Cameras
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-serif font-bold text-black">3</span>
+            <span className="text-3xl font-mono font-bold text-black">3</span>
             <span className="text-xs text-[#6F6F6F]">Feeds Tracked</span>
           </div>
         </div>
@@ -225,7 +225,7 @@ export const SurveillanceDatabasePage: React.FC<SurveillanceDatabasePageProps> =
             Format Accuracy Filter
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-serif font-bold text-black">
+            <span className="text-3xl font-mono font-bold text-black">
               {validOnly ? '100%' : 'Raw View'}
             </span>
             <span className="text-xs text-emerald-600 font-medium">

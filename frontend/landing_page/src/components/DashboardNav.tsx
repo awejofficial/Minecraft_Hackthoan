@@ -4,25 +4,28 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  Home,
   LayoutDashboard,
-  Search,
-  Database,
   MapPin,
+  Video,
+  BarChart3,
+  Search,
   ShieldAlert,
+  Volume2,
+  VolumeX,
+  LogOut,
   Menu,
   X,
-  ChevronRight,
-  LogOut,
-  UserCheck,
+  User,
+  ExternalLink,
 } from "lucide-react";
-import VisionXLogo from "@/components/VisionXLogo";
 import { useAuth } from "@/context/AuthContext";
 
 export const DashboardNav: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [soundOn, setSoundOn] = useState(true);
+  const [quickSearch, setQuickSearch] = useState("");
   const { officer, signOut } = useAuth();
   const officerEmail = officer?.email ?? "officer@traffic.gov.in";
 
@@ -31,246 +34,339 @@ export const DashboardNav: React.FC = () => {
     router.push("/?loggedout=true");
   };
 
-  const navItems = [
-    { label: "Home", href: "/", icon: Home },
-    { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { label: "Search & Studio", href: "/dashboard/search", icon: Search },
-    { label: "Database", href: "/dashboard/database", icon: Database },
-    { label: "Map", href: "/dashboard/map", icon: MapPin },
-    { label: "Blacklist", href: "/dashboard/blacklist", icon: ShieldAlert, isBlacklist: true },
+  const handleQuickSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (quickSearch.trim()) {
+      router.push(`/dashboard/map?plate=${encodeURIComponent(quickSearch.trim().toUpperCase())}`);
+    }
+  };
+
+  const primaryNavItems = [
+    {
+      label: "Dashboard",
+      subLabel: "Overview",
+      href: "/dashboard",
+      icon: LayoutDashboard,
+      exact: true,
+    },
+    {
+      label: "Dispatch Map",
+      subLabel: "GIS Live",
+      href: "/dashboard/map",
+      icon: MapPin,
+      exact: false,
+    },
+    {
+      label: "Video Review",
+      subLabel: "Studio",
+      href: "/dashboard/search",
+      icon: Video,
+      exact: false,
+    },
+    {
+      label: "Statistics",
+      subLabel: "Database",
+      href: "/dashboard/database",
+      icon: BarChart3,
+      exact: false,
+    },
+    {
+      label: "Advanced Search",
+      subLabel: "Query",
+      href: "/dashboard/search",
+      icon: Search,
+      exact: false,
+    },
+    {
+      label: "CarCheck",
+      subLabel: "Hotlist",
+      href: "/dashboard/blacklist",
+      icon: ShieldAlert,
+      exact: false,
+      badge: "2",
+      badgeColor: "bg-rose-500",
+    },
   ];
 
-  const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    if (href === "/dashboard") return pathname === "/dashboard";
+  const isItemActive = (href: string, exact: boolean) => {
+    if (exact) {
+      return pathname === href;
+    }
     return pathname.startsWith(href);
   };
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-black/10 transition-all shadow-xs">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 h-20 flex items-center justify-between gap-6">
-          {/* Brand Logo */}
-          <div className="flex items-center gap-4">
-            <Link
-              href="/"
-              className="flex items-center select-none cursor-pointer group"
-              title="Vision X Home"
-            >
-              <VisionXLogo size="md" />
-              <span className="ml-3 hidden sm:inline-block text-[11px] font-mono text-[#6F6F6F] border-l border-black/15 pl-3">
-                Surveillance Intelligence
-              </span>
-            </Link>
-          </div>
-
-          {/* Center Nav Links: Home, Search, Database, Map, Blacklist */}
-          <nav className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-black/[0.04] border border-black/5">
-            {navItems.map((item) => {
-              const active = isActive(item.href);
-              const Icon = item.icon;
-
-              if (item.isBlacklist) {
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`dash-nav-link flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                      active
-                        ? "dash-nav-blacklist-active shadow-sm"
-                        : "text-rose-700 hover:text-rose-900 hover:bg-rose-50"
-                    }`}
-                    style={
-                      active
-                        ? {
-                            backgroundColor: "#e11d48",
-                            color: "#ffffff",
-                            boxShadow: "0 2px 8px rgba(225, 29, 72, 0.25)",
-                          }
-                        : { color: "#be123c" }
-                    }
-                  >
-                    <Icon
-                      className="w-3.5 h-3.5 shrink-0"
-                      color={active ? "#ffffff" : "#be123c"}
-                      style={{
-                        color: active ? "#ffffff" : "#be123c",
-                        stroke: active ? "#ffffff" : "#be123c",
-                      }}
-                    />
-                    <span
-                      style={{
-                        color: active ? "#ffffff" : "#be123c",
-                      }}
-                    >
-                      {item.label}
-                    </span>
-                    <span
-                      className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold ${
-                        active ? "bg-white text-rose-700" : "bg-rose-100 text-rose-700"
-                      }`}
-                      style={{
-                        backgroundColor: active ? "#ffffff" : "#ffe4e6",
-                        color: "#be123c",
-                      }}
-                    >
-                      2
-                    </span>
-                  </Link>
-                );
-              }
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`dash-nav-link flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                    active
-                      ? "dash-nav-pill-active shadow-sm"
-                      : "text-[#5E5E59] hover:text-black hover:bg-white/80"
-                  }`}
-                  style={
-                    active
-                      ? {
-                            backgroundColor: "#000000",
-                            color: "#ffffff",
-                            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
-                          }
-                      : { color: "#5E5E59" }
-                  }
-                >
-                  <Icon
-                    className="w-3.5 h-3.5 shrink-0"
-                    color={active ? "#ffffff" : "#5E5E59"}
-                    style={{
-                      color: active ? "#ffffff" : "#5E5E59",
-                      stroke: active ? "#ffffff" : "#5E5E59",
-                    }}
-                  />
-                  <span
-                    style={{
-                      color: active ? "#ffffff" : "#5E5E59",
-                    }}
-                  >
-                    {item.label}
-                  </span>
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Right Status Indicator & Officer Controls */}
-          <div className="flex items-center gap-3">
-
-            {/* Officer Badge */}
-            <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-mono text-slate-700">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              <span className="truncate max-w-[120px] font-semibold">{officerEmail}</span>
-            </div>
-
-            {/* Sign Out Button */}
-            <button
-              onClick={handleSignOut}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-rose-700 hover:text-rose-950 hover:bg-rose-50 border border-rose-200 transition-colors cursor-pointer"
-              title="Sign Out / Lock Portal"
-            >
-              <LogOut className="w-3.5 h-3.5" />
-              <span>Sign Out</span>
-            </button>
-
-            <Link
-              href="/"
-              className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-black hover:text-[#6F6F6F] transition-colors"
-            >
-              <span>Site</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </Link>
-
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl border border-black/10 text-black hover:bg-black/5 cursor-pointer"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
+      {/* ══════════════════════════════════════════════════════════════
+          1. REKOR SCOUT LEFT VERTICAL NAVIGATION RAIL (Desktop)
+          Matches Image 1, 2, 3, 4 with dark navy canvas (#0E1321)
+          ══════════════════════════════════════════════════════════════ */}
+      <aside
+        className="fixed top-0 bottom-0 left-0 w-20 bg-[#0E1321] text-slate-300 z-50 flex flex-col justify-between items-center py-3 border-r border-slate-800/80 shadow-2xl hidden md:flex select-none"
+        aria-label="Rekor Scout Sidebar Navigation"
+      >
+        {/* Top: Rekor / VisionX Insignia */}
+        <div className="flex flex-col items-center gap-3 w-full px-2">
+          <Link
+            href="/dashboard"
+            className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-700 flex items-center justify-center text-white font-mono font-black text-xl shadow-lg shadow-blue-900/40 hover:scale-105 transition-transform"
+            title="VisionX Surveillance Intelligence"
+          >
+            <span className="tracking-tighter">VX</span>
+          </Link>
+          <div className="w-8 h-px bg-slate-800" />
         </div>
 
-        {/* Mobile Drawer */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-black/10 bg-white/95 backdrop-blur-xl px-6 py-4 space-y-1.5">
-            {navItems.map((item) => {
-              const active = isActive(item.href);
-              const Icon = item.icon;
+        {/* Center: Main Navigation Rail Stack */}
+        <nav className="flex flex-col items-center gap-1.5 w-full px-1.5 overflow-y-auto overflow-x-hidden py-1">
+          {primaryNavItems.map((item, idx) => {
+            const active = isItemActive(item.href, item.exact);
+            const Icon = item.icon;
 
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between w-full px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                    active
-                      ? item.isBlacklist
-                        ? "dash-nav-blacklist-active"
-                        : "dash-nav-pill-active"
-                      : item.isBlacklist
-                      ? "text-rose-700 bg-rose-50"
-                      : "text-black hover:bg-black/5"
-                  }`}
-                  style={
-                    active
-                      ? {
-                          backgroundColor: item.isBlacklist ? "#e11d48" : "#000000",
-                          color: "#ffffff",
-                        }
-                      : {}
-                  }
-                >
-                  <div className="flex items-center gap-3">
-                    <Icon
-                      className="w-4 h-4 shrink-0"
-                      color={active ? "#ffffff" : item.isBlacklist ? "#be123c" : "#121212"}
-                      style={{
-                        color: active ? "#ffffff" : item.isBlacklist ? "#be123c" : "#121212",
-                        stroke: active ? "#ffffff" : item.isBlacklist ? "#be123c" : "#121212",
-                      }}
-                    />
-                    <span style={{ color: active ? "#ffffff" : "inherit" }}>{item.label}</span>
-                  </div>
-                  {item.isBlacklist && (
+            return (
+              <Link
+                key={`${item.href}-${idx}`}
+                href={item.href}
+                className={`relative group w-full py-2.5 px-1 rounded-xl flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
+                  active
+                    ? "bg-white/12 text-white font-semibold shadow-xs"
+                    : "text-slate-400 hover:text-white hover:bg-white/6"
+                }`}
+                title={item.label}
+              >
+                {/* Active Indicator Bar on Left */}
+                {active && (
+                  <span className="absolute left-0 top-2 bottom-2 w-1 rounded-r-full bg-blue-500 shadow-sm" />
+                )}
+
+                <div className="relative">
+                  <Icon
+                    className={`w-5 h-5 transition-transform group-hover:scale-110 ${
+                      active ? "text-white" : "text-slate-400 group-hover:text-white"
+                    }`}
+                  />
+                  {item.badge && (
                     <span
-                      className="px-2 py-0.5 rounded-full text-xs font-mono font-bold"
-                      style={{
-                        backgroundColor: active ? "#ffffff" : "#ffe4e6",
-                        color: "#be123c",
-                      }}
+                      className={`absolute -top-1.5 -right-2 px-1.5 py-0.2 rounded-full text-[9px] font-mono font-bold text-white ${item.badgeColor} shadow-xs animate-pulse`}
                     >
-                      2 Flagged
+                      {item.badge}
                     </span>
                   )}
-                </Link>
-              );
-            })}
+                </div>
 
-            {/* Mobile Sign Out */}
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                handleSignOut();
-              }}
-              className="flex items-center justify-between w-full px-4 py-2.5 rounded-xl text-sm font-medium text-rose-700 bg-rose-50 border border-rose-200 mt-3 cursor-pointer"
-            >
-              <div className="flex items-center gap-3">
-                <LogOut className="w-4 h-4" />
-                <span>Sign Out ({officerEmail})</span>
-              </div>
-            </button>
+                <span
+                  className={`text-[9.5px] leading-tight text-center tracking-tight transition-colors ${
+                    active ? "text-white font-semibold" : "text-slate-400 group-hover:text-slate-200"
+                  }`}
+                >
+                  {item.label}
+                </span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Bottom: Utilities & Configuration */}
+        <div className="flex flex-col items-center gap-2 w-full px-2 pt-2 border-t border-slate-800/80">
+          <Link
+            href="/"
+            className="w-10 h-10 rounded-xl text-slate-400 hover:text-white hover:bg-white/6 flex items-center justify-center transition-all"
+            title="Public Mobility Landing Site"
+          >
+            <ExternalLink className="w-4 h-4" />
+          </Link>
+
+          <button
+            onClick={() => setSoundOn(!soundOn)}
+            className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
+              soundOn ? "text-emerald-400 hover:bg-emerald-500/10" : "text-slate-500 hover:bg-white/6"
+            }`}
+            title={`Telemetry Audio Alerts: ${soundOn ? "On" : "Muted"}`}
+          >
+            {soundOn ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+          </button>
+
+          <button
+            onClick={handleSignOut}
+            className="w-10 h-10 rounded-xl text-rose-400 hover:text-rose-200 hover:bg-rose-500/10 flex items-center justify-center transition-all cursor-pointer"
+            title="Lock Console / Sign Out"
+          >
+            <LogOut className="w-4 h-4" />
+          </button>
+        </div>
+      </aside>
+
+      {/* ══════════════════════════════════════════════════════════════
+          2. REKOR SCOUT TOP UTILITY HEADER BAR
+          Matches Image 1, 2, 3 with Quick Search, Sound On, Avatar
+          ══════════════════════════════════════════════════════════════ */}
+      <header
+        className="fixed top-0 right-0 left-0 md:left-20 h-14 bg-white/95 backdrop-blur-xl border-b border-black/10 z-40 px-4 sm:px-6 flex items-center justify-between shadow-xs select-none"
+        aria-label="Rekor Scout Top Header"
+      >
+        {/* Left Side: Mobile Menu Button & Rekor Quick Search */}
+        <div className="flex items-center gap-3 flex-1 max-w-xl">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-xl border border-black/10 text-black hover:bg-black/5 cursor-pointer"
+            aria-label="Toggle Navigation Drawer"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+
+          {/* Quick Search Form (Rekor Scout Image 3 Specification) */}
+          <form
+            onSubmit={handleQuickSearchSubmit}
+            className="relative flex-1 max-w-md hidden sm:flex items-center"
+          >
+            <div className="relative w-full">
+              <input
+                type="text"
+                placeholder="Quick Plate Search... (e.g. KA05MR9633)"
+                value={quickSearch}
+                onChange={(e) => setQuickSearch(e.target.value)}
+                className="w-full pl-9 pr-14 py-1.5 rounded-xl border border-black/15 bg-slate-50/70 hover:bg-white focus:bg-white text-xs font-mono text-black placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all"
+              />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <button
+                type="submit"
+                className="absolute right-1 top-1/2 -translate-y-1/2 px-2 py-0.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-mono font-bold transition-colors cursor-pointer"
+              >
+                Go
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {/* Right Side: Sound Status, Telemetry Dot & Officer Avatar */}
+        <div className="flex items-center gap-3">
+          {/* Sound On Indicator (Rekor Scout Image 2) */}
+          <button
+            onClick={() => setSoundOn(!soundOn)}
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono transition-colors border cursor-pointer border-black/5 bg-slate-100 hover:bg-slate-200 text-slate-700"
+            title="Toggle Audio Feedback"
+          >
+            {soundOn ? (
+              <>
+                <Volume2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="font-semibold text-emerald-700">Sound On</span>
+              </>
+            ) : (
+              <>
+                <VolumeX className="w-3.5 h-3.5 text-slate-400" />
+                <span className="text-slate-500">Muted</span>
+              </>
+            )}
+          </button>
+
+          {/* Engine Status Badge */}
+          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-mono text-emerald-800">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-semibold">CUDA GPU Active</span>
           </div>
-        )}
+
+          {/* Officer Identity & Avatar (Rekor Scout Image 1, 2, 3, 4) */}
+          <div className="flex items-center gap-2 pl-2 border-l border-black/10">
+            <div className="hidden xl:flex flex-col text-right">
+              <span className="text-xs font-semibold text-black leading-tight truncate max-w-[130px]">
+                {officerEmail.split("@")[0]}
+              </span>
+              <span className="text-[10px] font-mono text-slate-500">Operator</span>
+            </div>
+
+            <div
+              className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-700 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-xs ring-2 ring-black/5"
+              title={officerEmail}
+            >
+              <User className="w-4 h-4" />
+            </div>
+          </div>
+        </div>
       </header>
+
+      {/* ══════════════════════════════════════════════════════════════
+          3. MOBILE NAVIGATION DRAWER
+          Responsive overlay for small screens
+          ══════════════════════════════════════════════════════════════ */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-[100] md:hidden bg-black/60 backdrop-blur-xs flex"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          <div
+            className="w-72 bg-[#0E1321] text-white h-full flex flex-col justify-between p-6 shadow-2xl border-r border-slate-800 animate-in slide-in-from-left duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div>
+              <div className="flex items-center justify-between pb-6 border-b border-slate-800">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-white text-base">
+                    VX
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm text-white">VisionX Scout</div>
+                    <div className="text-[11px] font-mono text-slate-400">Public Safety LPR</div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/10"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Mobile Links */}
+              <nav className="mt-6 space-y-1">
+                {primaryNavItems.map((item, idx) => {
+                  const active = isItemActive(item.href, item.exact);
+                  const Icon = item.icon;
+
+                  return (
+                    <Link
+                      key={`mob-${item.href}-${idx}`}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-medium transition-all ${
+                        active
+                          ? "bg-blue-600 text-white font-semibold shadow-xs"
+                          : "text-slate-300 hover:bg-white/5 hover:text-white"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon className="w-5 h-5" />
+                        <span>{item.label}</span>
+                      </div>
+                      {item.badge && (
+                        <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-rose-500 text-white">
+                          {item.badge}
+                        </span>
+                      )}
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
+
+            <div className="pt-6 border-t border-slate-800 space-y-3">
+              <div className="text-xs text-slate-400 font-mono truncate">{officerEmail}</div>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleSignOut();
+                }}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 text-xs font-semibold transition-colors cursor-pointer"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Sign Out / Lock Portal</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
 
 export default DashboardNav;
+

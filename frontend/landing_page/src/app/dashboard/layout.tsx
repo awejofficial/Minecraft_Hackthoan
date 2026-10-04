@@ -15,35 +15,31 @@ export default function DashboardLayout({
 }) {
   return (
     <DashboardAuthGuard>
-      <div className="min-h-screen bg-[#FAFAFA] text-[#000000] font-sans selection:bg-black selection:text-white flex flex-col justify-between">
-        <div>
-          <DashboardNav />
-          {children}
-        </div>
+      <div className="min-h-screen bg-[#F8F9FA] text-[#000000] font-sans selection:bg-blue-600 selection:text-white flex flex-col justify-between">
+        {/* Rekor Scout Left Nav Rail & Top Utility Header */}
+        <DashboardNav />
 
-        {/* ─────── Footer from Landing Page ─────── */}
-        <footer className="border-t border-black/10 py-8 px-6 bg-white mt-20">
-          <div
-            className="wrap max-w-7xl mx-auto"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              gap: "16px",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-              <VisionXLogo size="sm" />
+        {/* Content Canvas Offset by Left Rail (w-20) and Top Bar (pt-14) */}
+        <div className="flex-1 md:pl-20 pt-14 flex flex-col justify-between">
+          <main className="flex-1 w-full">
+            {children}
+          </main>
+
+          {/* Console Footer */}
+          <footer className="border-t border-black/10 py-6 px-6 sm:px-8 bg-white mt-12">
+            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <VisionXLogo size="sm" />
+                <span className="text-xs font-mono text-[#5E5E59]">
+                  ADVANCED MOBILITY &amp; ROADWAY INTELLIGENCE
+                </span>
+              </div>
               <span className="text-xs font-mono text-[#5E5E59]">
-                ADVANCED MOBILITY &amp; ROADWAY INTELLIGENCE
+                SIH26127 • THREE-STAGE YOLO11 + TROCR LOCAL INFERENCE
               </span>
             </div>
-            <span className="text-xs font-mono text-[#5E5E59]">
-              SIH26127 • THREE-STAGE YOLO11 + TROCR LOCAL INFERENCE
-            </span>
-          </div>
-        </footer>
+          </footer>
+        </div>
       </div>
     </DashboardAuthGuard>
   );

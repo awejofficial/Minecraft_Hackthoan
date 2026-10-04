@@ -27,7 +27,7 @@ export const VehicleSpotCard: React.FC<VehicleSpotCardProps> = ({
         <div className="w-16 h-16 rounded-full bg-black/5 flex items-center justify-center mb-4 text-[#6F6F6F]">
           <Car className="w-8 h-8" />
         </div>
-        <h3 className="text-xl font-serif text-black mb-2">No Vehicle Spotted Yet</h3>
+        <h3 className="text-xl font-sans font-bold text-black mb-2">No Vehicle Spotted Yet</h3>
         <p className="text-sm text-[#6F6F6F] max-w-sm">
           Enter a license plate in the search bar above or choose one from the detected fleet list below to examine its timeline and video frames.
         </p>

@@ -93,7 +93,7 @@ export const PlateReadModal: React.FC<PlateReadModalProps> = ({
         {/* Top Header Bar */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-black/10 bg-slate-50/80">
           <div className="flex items-center gap-3">
-            <span className="text-lg font-serif font-bold text-black tracking-tight">
+            <span className="text-lg font-sans font-bold text-black tracking-tight">
               Plate Read
             </span>
             <button

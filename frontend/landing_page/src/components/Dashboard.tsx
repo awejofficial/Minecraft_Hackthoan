@@ -451,7 +451,7 @@ export default function Dashboard() {
       {activeTab === "tester" && (
         <div className="animate-fade-in space-y-6">
           <div className="bg-white/90 backdrop-blur-md rounded-2xl border border-black/10 p-6 shadow-xs">
-            <h3 className="text-xl font-serif text-black mb-1">
+            <h3 className="text-xl font-sans font-bold text-black mb-1">
               Live Three-Stage ANPR & Vision Transformer OCR Testing Studio
             </h3>
             <p className="text-xs text-[#6F6F6F]">
@@ -479,7 +479,7 @@ export default function Dashboard() {
           {/* Heatmap */}
           <div className="lg:col-span-5 bg-white/90 backdrop-blur-md rounded-2xl border border-black/10 p-6">
             <span className="mono text-xs">Sector Density</span>
-            <h4 className="text-lg font-serif text-black mt-1 mb-4">Vehicle density by grid cell</h4>
+            <h4 className="text-lg font-sans font-bold text-black mt-1 mb-4">Vehicle density by grid cell</h4>
             <div className="hm-wrap">
               <span className="hm-compass hm-n">N</span>
               <span className="hm-compass hm-s">S</span>
@@ -507,7 +507,7 @@ export default function Dashboard() {
           <div className="lg:col-span-7 bg-white/90 backdrop-blur-md rounded-2xl border border-black/10 p-6 flex flex-col justify-between">
             <div>
               <span className="mono text-xs">Corridor Speeds</span>
-              <h4 className="text-lg font-serif text-black mt-1 mb-4">Traffic velocity across arterial routes</h4>
+              <h4 className="text-lg font-sans font-bold text-black mt-1 mb-4">Traffic velocity across arterial routes</h4>
               <div className="space-y-4">
                 {CORRIDORS.map((c) => (
                   <div key={c.name} className="space-y-1.5">

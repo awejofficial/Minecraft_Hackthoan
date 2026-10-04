@@ -16,7 +16,7 @@ export default function DashboardDatabasePage() {
       {/* Page Header referencing traffic-light */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-2">
         <div className="border-b border-black/10 pb-5">
-          <h1 className="text-3xl sm:text-4xl font-serif text-black font-normal tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-sans text-black font-bold tracking-tight">
             Surveillance Records Database
           </h1>
           <p className="text-sm text-[#6F6F6F] mt-1 font-sans">

@@ -127,7 +127,7 @@ export const SearchStudioView: React.FC = () => {
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6">
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-black/10 pb-5">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-serif text-black font-normal tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-sans text-black font-bold tracking-tight">
               Vehicle &amp; Timeline Spotter
             </h1>
             <p className="text-sm text-[#6F6F6F] mt-1 font-sans">
@@ -210,7 +210,7 @@ export const SearchStudioView: React.FC = () => {
       {/* Live ANPR & TrOCR Interactive Inference Section */}
       <section className="w-full max-w-6xl mx-auto px-6 py-16 border-t border-black/10">
         <div className="mb-8">
-          <h2 className="text-2xl sm:text-3xl font-serif text-black tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-sans font-bold text-black tracking-tight">
             Live Character Recognition Studio
           </h2>
           <p className="text-sm text-[#6F6F6F] mt-1 max-w-2xl font-sans">

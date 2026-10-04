@@ -637,11 +637,11 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
           </div>
 
           <h1
-            className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal text-[#000000] tracking-tight leading-[1.05] max-w-5xl"
+            className="font-sans text-3xl sm:text-5xl md:text-6xl font-bold text-[#000000] tracking-tight leading-[1.05] max-w-5xl"
             style={{ letterSpacing: "-1.5px" }}
           >
             District Trajectory &amp;{" "}
-            <span className="italic text-[#6F6F6F]">Cross-Perimeter Intelligence.</span>
+            <span className="italic text-[#6F6F6F] font-normal">Cross-Perimeter Intelligence.</span>
           </h1>
 
           <p className="max-w-3xl mt-4 text-sm sm:text-base leading-relaxed text-[#6F6F6F]">
@@ -653,19 +653,19 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
           {/* Quick Stats Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-black/10">
             <div>
-              <div className="font-serif text-2xl sm:text-3xl font-normal text-[#000000]">7</div>
+              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#000000]">7</div>
               <div className="text-xs text-[#6F6F6F] uppercase tracking-wider mt-1">Districts Mapped</div>
             </div>
             <div>
-              <div className="font-serif text-2xl sm:text-3xl font-normal text-[#000000]">NH-275 / 44</div>
+              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#000000]">NH-275 / 44</div>
               <div className="text-xs text-[#6F6F6F] uppercase tracking-wider mt-1">Express Corridors</div>
             </div>
             <div>
-              <div className="font-serif text-2xl sm:text-3xl font-normal text-[#000000]">6 Nodes</div>
+              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#000000]">6 Nodes</div>
               <div className="text-xs text-[#6F6F6F] uppercase tracking-wider mt-1">Perimeter Feeds</div>
             </div>
             <div>
-              <div className="font-serif text-2xl sm:text-3xl font-normal text-[#000000]">100%</div>
+              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#000000]">100%</div>
               <div className="text-xs text-[#6F6F6F] uppercase tracking-wider mt-1">Standard Format OCR</div>
             </div>
           </div>
@@ -728,7 +728,7 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
             <div className="text-xs font-semibold uppercase tracking-wider text-[#6F6F6F] mb-1">
               Geographical Surveillance Mesh
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl text-[#000000] font-normal tracking-tight">
+            <h2 className="font-sans text-3xl sm:text-4xl text-[#000000] font-bold tracking-tight">
               District Boundary &amp; Arterial Expressway Mapping
             </h2>
             <p className="text-sm text-[#6F6F6F] mt-1 max-w-2xl">
@@ -793,7 +793,7 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
                   {currentTrajectory.plate}
                 </span>
               </div>
-              <div className="font-serif text-2xl text-[#000000] font-normal leading-tight">
+              <div className="font-sans text-2xl text-[#000000] font-bold leading-tight">
                 {currentTrajectory.vehicleModel}
               </div>
               <div className="text-xs text-[#6F6F6F] mt-1">{currentTrajectory.vehicleType}</div>
@@ -834,7 +834,7 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
                   {currentTrajectory.firstSeen.timestamp}
                 </span>
               </div>
-              <div className="font-serif text-lg font-normal text-black">
+              <div className="font-sans text-lg font-bold text-black">
                 {currentTrajectory.firstSeen.districtName}
               </div>
               <div className="text-xs text-[#6F6F6F] mt-0.5">
@@ -857,7 +857,7 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
                     {currentTrajectory.reappearedAt.timestamp}
                   </span>
                 </div>
-                <div className="font-serif text-lg font-normal text-black">
+                <div className="font-sans text-lg font-bold text-black">
                   {currentTrajectory.reappearedAt.districtName}
                 </div>
                 <div className="text-xs text-[#6F6F6F] mt-0.5">
@@ -885,7 +885,7 @@ export const GpsTransitMapPage: React.FC<GpsTransitMapPageProps> = ({
           <div className="text-xs font-semibold uppercase tracking-wider text-[#6F6F6F] mb-1">
             Optical Verification Dossier
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl text-[#000000] font-normal tracking-tight">
+          <h2 className="font-sans text-3xl sm:text-4xl text-[#000000] font-bold tracking-tight">
             1 &amp; 2 Photographic Evidence Log
           </h2>
           <p className="text-sm text-[#6F6F6F] mt-1 max-w-2xl">

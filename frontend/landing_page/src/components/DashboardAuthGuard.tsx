@@ -21,7 +21,7 @@ export default function DashboardAuthGuard({
             <Lock className="w-5 h-5" />
           </div>
           <div className="space-y-1">
-            <h3 className="font-serif text-base font-semibold text-black">Verifying Telemetry Credentials</h3>
+            <h3 className="font-sans text-base font-semibold text-black">Verifying Telemetry Credentials</h3>
             <p className="text-xs text-slate-500 font-mono">Checking VisionX operator security token...</p>
           </div>
         </div>
@@ -37,7 +37,7 @@ export default function DashboardAuthGuard({
             <ShieldAlert className="w-6 h-6 animate-pulse" />
           </div>
           <div className="space-y-1.5">
-            <h3 className="font-serif text-lg font-semibold text-black">Officer Authentication Required</h3>
+            <h3 className="font-sans text-lg font-semibold text-black">Officer Authentication Required</h3>
             <p className="text-xs text-slate-600">
               Surveillance telemetry and ANPR tracking require verified agency credentials.
             </p>

@@ -48,7 +48,7 @@ export default function DashboardBlacklistPage() {
                 Surveillance Registry • {BLOCKED_VEHICLES_DATA.length} Targets Active
               </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-serif text-black font-normal tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-sans text-black font-bold tracking-tight">
               Flagged &amp; Wanted Vehicles Hotlist
             </h1>
             <p className="text-sm text-[#6F6F6F] mt-1.5 max-w-3xl font-sans">
@@ -60,17 +60,17 @@ export default function DashboardBlacklistPage() {
           {/* Quick Metrics */}
           <div className="flex items-center gap-3 shrink-0">
             <div className="px-4 py-2 rounded-2xl bg-white border border-black/10 text-center">
-              <div className="text-xl font-serif font-bold text-rose-600">
+              <div className="text-xl font-mono font-bold text-rose-600">
                 {BLOCKED_VEHICLES_DATA.length}
               </div>
               <div className="text-[10px] font-mono uppercase text-[#6F6F6F]">Flagged Fleet</div>
             </div>
             <div className="px-4 py-2 rounded-2xl bg-white border border-black/10 text-center">
-              <div className="text-xl font-serif font-bold text-black">2</div>
+              <div className="text-xl font-mono font-bold text-black">2</div>
               <div className="text-[10px] font-mono uppercase text-[#6F6F6F]">Hit &amp; Run</div>
             </div>
             <div className="px-4 py-2 rounded-2xl bg-white border border-black/10 text-center">
-              <div className="text-xl font-serif font-bold text-black">1</div>
+              <div className="text-xl font-mono font-bold text-black">1</div>
               <div className="text-[10px] font-mono uppercase text-[#6F6F6F]">Stolen</div>
             </div>
           </div>
